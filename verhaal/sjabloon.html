@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leerlingen in Vlaanderen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: scrollverhaal; tekstkaarten links, vaste grafiek rechts; op smalle schermen grafiek boven, kaarten eronder */
+:root{
+ --paper:#F1F3F2;--card:#FFFFFF;--ink:#161D1B;--ink2:#56625E;--line:#D4DBD8;--muted:#CDD5D2;
+ --k:#D2553A;--l:#2F69A6;--s:#2A8669;--bu:#7B4CA6;--acc:#E8B100;--water:#C9DCE8;
+ --pos:#1F7A4D;--neg:#B3261E;--hl:#FDF3D0;
+ --f-d:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;--f-b:Barlow,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --paper:#101614;--card:#18201E;--ink:#E5ECE9;--ink2:#97A6A0;--line:#28322F;--muted:#2C3734;
+ --k:#FF7A5C;--l:#6EA4E0;--s:#4CC19B;--bu:#B58BDB;--acc:#F2C230;--water:#173244;--pos:#57C28C;--neg:#FF7B70;--hl:#3A3312;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --paper:#101614;--card:#18201E;--ink:#E5ECE9;--ink2:#97A6A0;--line:#28322F;--muted:#2C3734;
+ --k:#FF7A5C;--l:#6EA4E0;--s:#4CC19B;--bu:#B58BDB;--acc:#F2C230;--water:#173244;--pos:#57C28C;--neg:#FF7B70;--hl:#3A3312;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--f-b);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-d);text-wrap:balance}
+a{color:inherit}
+.kicker{font:600 13px/1 var(--f-b);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.k{color:var(--k);font-weight:600}.l{color:var(--l);font-weight:600}.s{color:var(--s);font-weight:600}.bu{color:var(--bu);font-weight:600}
+.hero{padding:12vh max(24px,6vw) 8vh;max-width:1200px;margin:0 auto}
+.hero .big{font:700 clamp(84px,17vw,220px)/.85 var(--f-d);margin:16px 0 8px;letter-spacing:-.02em}
+.hero .big span{box-shadow:inset 0 -.18em 0 var(--acc)}
+.hero h1{font-size:clamp(28px,4.4vw,54px);line-height:1.05;margin:0 0 20px;max-width:20ch}
+.hero p{font-size:clamp(17px,1.6vw,20px);max-width:58ch;color:var(--ink2);margin:0 0 10px}
+.trio{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px}
+.trio div{font:600 15px var(--f-b);color:var(--ink2)}.trio b{display:block;font:700 34px/1.05 var(--f-d)}
+.cue{margin-top:6vh;font-size:14px;color:var(--ink2)}
+.chapter-head{max-width:1200px;margin:0 auto;padding:12vh max(24px,6vw) 3vh}
+.chapter-head h2{font-size:clamp(32px,4.8vw,60px);line-height:1.03;margin:10px 0 14px;max-width:22ch}
+.chapter-head p{max-width:62ch;color:var(--ink2);margin:0;font-size:19px}
+.scrolly{position:relative;display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:4vw;max-width:1280px;margin:0 auto;padding:0 max(24px,4vw)}
+.steps{position:relative;z-index:2;padding:8vh 0 40vh}
+.step{min-height:85vh;display:flex;align-items:center}
+.step .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:0 10px 30px rgba(15,25,20,.06);opacity:.35;transition:opacity .4s}
+.step.is-active .card{opacity:1}
+.card h3{font-size:24px;line-height:1.15;margin:0 0 10px}
+.card p{margin:0 0 10px}.card p:last-child{margin:0}
+.card .src{font-size:13px;color:var(--ink2)}
+.graphic{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center}
+.graphic figure{margin:0;width:100%;display:flex;flex-direction:column;align-items:center}
+.graphic svg{width:100%;height:auto;max-height:calc(100vh - 80px);display:block;overflow:visible}
+.legend{display:flex;gap:6px 16px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--ink2);margin-top:8px;min-height:20px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--c)}
+svg.stage{transition:opacity .22s}svg.stage:not(.on){opacity:0}
+.grid line{stroke:var(--line)}.grid text{fill:var(--ink2);font:12px var(--f-b)}
+.lbl{font:600 14px var(--f-d);fill:var(--ink)}.lbl.big{font-size:24px}.lbl.mut{fill:var(--ink2);font-weight:500}.lbl.sm{font-size:12.5px}
+.bar{transform-box:fill-box;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.bar.up{transform-origin:bottom;transform:scaleY(0)}.bar.dn{transform-origin:top;transform:scaleY(0)}
+.bar.r{transform-origin:left;transform:scaleX(0)}.bar.lft{transform-origin:right;transform:scaleX(0)}
+.on .bar{transform:none}
+.ln{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.3s ease}
+.on .ln{stroke-dashoffset:0}
+.gem{stroke:var(--card);stroke-width:.35;vector-effect:non-scaling-stroke}
+.arr{stroke:var(--card);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.alab{font:700 15px var(--f-d);text-anchor:middle;paint-order:stroke;stroke:var(--card);stroke-width:3px;fill:var(--ink)}
+.outro{max-width:1200px;margin:0 auto;padding:12vh max(24px,6vw) 10vh}
+.outro h2{font-size:clamp(30px,4vw,48px);line-height:1.05;margin:10px 0 16px;max-width:22ch}
+.outro>p{max-width:64ch;font-size:19px;color:var(--ink2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:26px 0}
+.cards div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.cards b{display:block;font:700 13px var(--f-b);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin-bottom:6px}
+.cards p{margin:0;font-size:16px;line-height:1.45}
+details{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;max-width:84ch}
+summary{cursor:pointer;font-weight:600}
+details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--acc);width:0;z-index:10}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+@media (max-width:860px){
+ .scrolly{display:flex;flex-direction:column;padding:0 16px}
+ .graphic{order:-1;top:0;height:60vh;z-index:1;background:var(--paper);padding-top:env(safe-area-inset-top,0px)}
+ .graphic svg{max-height:calc(60vh - 50px)}
+ .steps{padding:0 0 40vh}
+ .step{min-height:90vh;align-items:flex-end;padding-bottom:4vh}
+ .step .card{opacity:.94}
+ .hero,.chapter-head,.outro{padding-inline:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.ln{stroke-dashoffset:0}.bar{transform:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="prog" aria-hidden="true"></div>
+<header class="hero">
+ <div class="kicker">Leerplichtonderwijs Vlaanderen · telling 1 februari, 2016-17 tot 2025-26</div>
+ <div class="big"><span>1.223.362</span></div>
+ <h1>leerlingen. Er komen er niet veel meer bij, maar ze schuiven op.</h1>
+ <p>Op tien jaar groeide het Nederlandstalig leerplichtonderwijs met 3%. Achter dat kleine getal zit een golf die van de kleuterklas naar het secundair rolt, een buitengewoon onderwijs dat sneller groeit dan verwacht, en een secundair dat van vorm verandert.</p>
+ <div class="trio">
+  <div><b class="k">−4,6%</b>kleuters</div>
+  <div><b class="l">−0,7%</b>lager</div>
+  <div><b class="s">+12,7%</b>secundair</div>
+  <div><b class="bu">+31%</b>buitengewoon secundair</div>
+ </div>
+ <div class="cue">Scroll om te lezen</div>
+</header>
+
+<main>
+<section class="chapter-head"><div class="kicker">Hoofdstuk 1</div><h2>De golf rolt door de school</h2><p>Wie in de jaren van de geboortepiek werd geboren, zit nu in het secundair. Achter hen komen kleinere jaargangen.</p></section>
+<div class="scrolly" id="sc1"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Drie niveaus, drie richtingen</h3><p>Sinds 2016-17 daalde het aantal <span class="k">kleuters</span> met 4,6%. Het <span class="l">lager</span> piekte in 2019-20 en zit nu 3,1% lager dan die piek. Het <span class="s">secundair</span> groeide met 15%.</p><p class="src">Secundair zonder 7e jaar, om de hervorming van 2025-26 eruit te houden. Gewoon onderwijs; buitengewoon in hoofdstuk 3.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>2025-26: een dip die geen dip is</h3><p>Het secundair telde 4.593 leerlingen minder dan vorig jaar. Dat komt bijna volledig door het nieuwe 7e leerjaar, dat 5.401 leerlingen minder telt dan het oude 7e jaar.</p><p>Zonder 7e jaar groeit het secundair nog met 808 leerlingen. Maar in het eerste jaar A zitten er 1.037 minder: <b>de piek staat aan de schoolpoort</b>.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>De vooruitzichten bevestigen het</h3><p>Volgens het Federaal Planbureau piekt het aantal <span class="s">12- tot 17-jarigen</span> in 2026-2027 en daalt het daarna. De <span class="l">6- tot 11-jarigen</span> dalen al sinds 2020. De <span class="k">3- tot 5-jarigen</span> bereiken tussen 2030 en 2032 hun laagste punt.</p><p class="src">Volle lijn: waarneming. Stippellijn: vooruitzicht. 22 Vlaamse arrondissementen, op 1 januari.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Daarna keert het tij</h3><p>Het aantal geboortes zakte tot een dal rond 2025-2027 en stijgt in de vooruitzichten weer, naar bijna 70.000 per jaar in 2040. Vanaf 2033 groeit de kleuterklas dus opnieuw, terwijl het secundair blijft krimpen.</p></div></div>
+</div><div class="graphic"><figure><svg id="c1" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g1"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 2</div><h2>Krimp is bijna overal, maar niet overal even hard</h2><p>Het Vlaamse totaal verbergt grote verschillen tussen gemeenten, steden en regio's.</p></section>
+<div class="scrolly" id="sc2"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Twee op drie gemeenten hebben minder kleuters</h3><p>In 195 van de 281 gemeenten met minstens 100 kleuters zijn er minder dan in 2016-17. In 36 gemeenten gaat het om meer dan 15%.</p><p>Limburg krimpt het hardst: <span class="k">−11%</span>. West-Vlaanderen en Vlaams-Brabant houden best stand.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>De steden krimpen sneller, Brussel groeit</h3><p>In de dertien centrumsteden daalde het aantal kleuters met 7,0%, in de rest van Vlaanderen met 4,6%.</p><p>Het Nederlandstalig onderwijs in Brussel groeit wel: +8,5% kleuters, +18% in het lager en +32% in het secundair.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Het secundair groeit bijna overal</h3><p>In 126 van de 165 gemeenten met een secundaire school zijn er meer leerlingen dan in 2016-17. Het secundair groeide in de centrumsteden (+13%) en daarbuiten (+11%) ongeveer even hard.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Tegen 2036: minder tieners in bijna elk arrondissement</h3><p>Het aantal 12- tot 17-jarigen daalt volgens de vooruitzichten tussen 2026 en 2036 in 19 van de 22 arrondissementen. Het sterkst in Hasselt, Maaseik en Veurne (−11%). Alleen Halle-Vilvoorde, Kortrijk en Aalst groeien licht.</p><p class="src">Bevolking op 1 januari 2026 en 2036, Federaal Planbureau en Statbel.</p></div></div>
+</div><div class="graphic"><figure><svg id="c2" class="stage" role="img"></svg><div class="legend" id="g2"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 3</div><h2>Het buitengewoon onderwijs groeit, ondanks het M-decreet</h2><p>Het M-decreet van 2015 wilde meer leerlingen met specifieke noden in het gewone onderwijs houden. Tien jaar later zit een groter deel van de leerlingen in het buitengewoon onderwijs dan toen.</p></section>
+<div class="scrolly" id="sc3"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Een groter deel, elk jaar</h3><p>In het basisonderwijs ging het aandeel buitengewoon van 3,65% naar 4,19%, in het secundair van 4,42% naar <span class="bu">5,22%</span>. Het BuSO telt 26.442 leerlingen, 31% meer dan in 2016-17.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>Type 9 verviervoudigde</h3><p>In het BuSO steeg <span class="bu">type 9</span> (autismespectrumstoornis) van 2.145 naar 9.516 leerlingen. Het is nu het grootste type.</p><p class="src">Type 1 en 8 verdwenen in 2015-2018 en gingen op in het basisaanbod (BA). Type 9 bestaat sinds 2015; een deel van de groei is herkwalificatie van leerlingen uit andere types.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>OV4 bijna verdrievoudigd, OV3 stabiel</h3><p>Opleidingsvorm 4, die voorbereidt op hoger onderwijs of arbeidsmarkt zoals het gewoon secundair, groeide van 2.266 naar 6.198 leerlingen. 86% daarvan zit in type 9.</p><p>Opleidingsvorm 3, het beroepsonderwijs, blijft rond 10.000 leerlingen. Daar zit vooral het basisaanbod.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Twee op drie zijn jongens</h3><p>In het buitengewoon lager en het BuSO zijn twee op drie leerlingen jongens, tegenover de helft in het gewoon onderwijs. Ook leerlingen zonder Belgische nationaliteit zijn er sterker vertegenwoordigd.</p></div></div>
+</div><div class="graphic"><figure><svg id="c3" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g3"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 4</div><h2>Het secundair verandert van vorm</h2><p>De modernisering van het secundair rolde tussen 2019 en 2025 jaar per jaar uit. Aso, tso, kso en bso maakten plaats voor drie finaliteiten.</p></section>
+<div class="scrolly" id="sc4"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>De helft zit in een doorstroomrichting</h3><p>In de 2e en 3e graad volgt 49% een richting met <b>doorstroomfinaliteit</b>, 26% een dubbele finaliteit en 25% een richting met arbeidsmarktfinaliteit.</p><p class="src">De oude onderwijsvormen en de nieuwe finaliteiten zijn niet één op één te vergelijken: tso-richtingen vallen nu onder doorstroom of dubbele finaliteit.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>De B-stroom groeit</h3><p>In 2016-17 startte 12,9% van de leerlingen in het eerste jaar B. In 2025-26 is dat 14,6%: bijna één op zeven.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>OKAN bijna verdubbeld</h3><p>Het onthaalonderwijs voor anderstalige nieuwkomers groeide van 4.096 naar 7.833 leerlingen, met een piek van 8.364 in 2022-23, het jaar na de inval in Oekraïne.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Het 7e jaar krimpt</h3><p>Het oude 7e jaar (bso en Se-n-Se) telde in 2024-25 nog 13.523 leerlingen. Het nieuwe 7e leerjaar telt er 8.122, 40% minder.</p><p>Voor knelpuntberoepen als zorgkundige is dat 7e jaar vaak de toegang tot de job.</p></div></div>
+</div><div class="graphic"><figure><svg id="c4" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g4"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 5</div><h2>Meer leerlingen zonder Belgische nationaliteit</h2><p>Op alle niveaus steeg het aandeel leerlingen met een andere nationaliteit, het sterkst in de centrumsteden.</p></section>
+<div class="scrolly" id="sc5"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Overal twee à drie procentpunt meer</h3><p>Bij de kleuters ging het aandeel van 10,7% naar 12,8%, in het lager van 8,8% naar 11,9%, in het secundair van 8,2% naar 10,8%. In het buitengewoon onderwijs ligt het hoger, tot 15,6%.</p><p class="src">Nationaliteit is niet hetzelfde als herkomst of thuistaal: veel kinderen met een migratieachtergrond zijn Belg.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>Vooral in de centrumsteden</h3><p>In de dertien centrumsteden heeft 16,3% van de leerlingen een andere nationaliteit, in de rest van Vlaanderen 9,5%. In het Nederlandstalig onderwijs in Brussel is dat 11,7%.</p></div></div>
+</div><div class="graphic"><figure><svg id="c5" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g5"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 6</div><h2>Het GO wint langzaam terrein</h2><p>Het vrij onderwijs blijft veruit het grootst, maar het gemeenschapsonderwijs groeit sneller.</p></section>
+<div class="scrolly" id="sc6"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Twee procentpunt in tien jaar</h3><p>Het GO ging in het basisonderwijs van 15,4% naar 16,6% van de leerlingen, in het secundair van 19,2% naar 21,1%. Het vrij onderwijs verloor in beide.</p><p>Het gemeentelijk onderwijs, vooral sterk in het basisonderwijs, blijft ongeveer stabiel.</p></div></div>
+</div><div class="graphic"><figure><svg id="c6" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g6"></div></figure></div></div>
+</main>
+
+<section class="outro">
+ <div class="kicker">Wat dit betekent</div>
+ <h2>Vier vragen voor de komende tien jaar</h2>
+ <div class="cards">
+  <div><b>Basisonderwijs</b><p>De kleuterklas bereikt tussen 2030 en 2032 haar dal en groeit daarna weer. Wordt de capaciteit nu afgebouwd, terwijl ze enkele jaren later opnieuw nodig is?</p></div>
+  <div><b>Secundair</b><p>De piek is bereikt. Vanaf 2027 dalen de leerlingenaantallen in bijna elk arrondissement. Welke scholen en richtingen krijgen het eerst de krimp te voelen?</p></div>
+  <div><b>Buitengewoon</b><p>Type 9 blijft groeien. Hebben de scholen voor buitengewoon onderwijs, en vooral OV4, de plaatsen en de expertise?</p></div>
+  <div><b>Arbeidsmarkt</b><p>Het 7e jaar telt 40% minder leerlingen. Wat betekent dat voor de instroom in knelpuntberoepen?</p></div>
+ </div>
+ <details><summary>Bronnen en methode</summary><ul>
+  <li>Inschrijvingen: Onderwijs Vlaanderen, open data "inschrijvingen leerplicht per instelling", telling 1 februari, schooljaren 2016-17 tot 2025-26. Nederlandstalig leerplichtonderwijs in Vlaanderen en Brussel. Gemeenten volgens de indeling van 2025 (de bron past fusies toe op alle jaren).</li>
+  <li>Secundair zonder 7e jaar: zonder het 3e leerjaar van de 3e graad, Se-n-Se en het nieuwe 7e leerjaar, omdat de hervorming van 2025-26 de reeks anders breekt.</li>
+  <li>Bevolking: Federaal Planbureau en Statbel, bevolking per arrondissement en leeftijd op 1 januari; waarnemingen tot 2025, vanaf 2026 vooruitzichten. Vlaanderen = de 22 Vlaamse arrondissementen.</li>
+  <li>Kaarten: gemeente- en arrondissementsgrenzen van Informatie Vlaanderen (VRBG 2025). Gemeenten met minder dan 100 leerlingen op het betrokken niveau in 2016-17 zijn grijs.</li>
+  <li>Buitengewoon onderwijs: type 1 en 8 werden in 2015-2018 vervangen door het basisaanbod (BA); type 9 bestaat sinds 2015. Vergelijkingen per type over die jaren heen tonen dus deels een registratiewijziging.</li>
+  <li>Centrumsteden: Aalst, Antwerpen, Brugge, Genk, Gent, Hasselt, Kortrijk, Leuven, Mechelen, Oostende, Roeselare, Sint-Niklaas, Turnhout.</li>
+ </ul></details>
+</section>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent),Y=D.Y,NS='http://www.w3.org/2000/svg';
+const fmt=n=>Math.round(n).toLocaleString('nl-BE'),pct=(v,d=1)=>(v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(d).replace('.',',')+'%';
+const cv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const YL=y=>String(y).slice(2)+'-'+String(y+1).slice(2);
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)if(a[k]!=null)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,c,anc){const t=el('text',{x,y,class:c||'lbl','text-anchor':anc||'start'},p);t.textContent=s;return t}
+const lin=(d0,d1,r0,r1)=>v=>r0+(v-d0)/(d1-d0)*(r1-r0);
+function legend(id,items){document.getElementById(id).innerHTML=items.map(([l,c])=>`<span style="--c:var(${c})">${l}</span>`).join('')}
+function stage(svg,fn){clearTimeout(svg._t);const go=()=>{svg.innerHTML='';svg.setAttribute('viewBox','0 0 800 480');fn(svg);requestAnimationFrame(()=>requestAnimationFrame(()=>{svg.querySelectorAll('.ln').forEach(p=>p.style.setProperty('--len',p.getTotalLength()));svg.classList.add('on')}))};if(svg.childNodes.length){svg.classList.remove('on');svg._t=setTimeout(go,230)}else go()}
+const W=800,H=480;
+/* lijngrafiek */
+function lines(svg,{series,x0,x1,lo,hi,step,yf,title,cut,xt}){const m={l:62,r:150,t:52,b:42},X=lin(x0,x1,m.l,W-m.r),Yy=lin(lo,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi+1e-9;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,yf(v),'','end')}
+ (xt||[]).forEach(v=>txt(svg,X(v),H-m.b+22,typeof v==='number'&&v>2000&&x1-x0<15?YL(v):String(v),'lbl mut sm','middle'));
+ if(cut){el('rect',{x:X(cut),y:m.t,width:W-m.r-X(cut),height:H-m.b-m.t,fill:cv('--muted'),opacity:.35},svg);txt(svg,X(cut)+8,m.t+16,'vooruitzicht','lbl mut sm')}
+ const ends=[];series.forEach(s=>{const parts=cut?[s.pts.filter(p=>p[0]<=cut),s.pts.filter(p=>p[0]>=cut)]:[s.pts];
+  parts.forEach((pp,k)=>{if(pp.length<2)return;el('path',{d:'M'+pp.map(q=>X(q[0]).toFixed(1)+','+Yy(q[1]).toFixed(1)).join('L'),fill:'none',stroke:cv(s.c),'stroke-width':s.w||3,'stroke-dasharray':k?'6 5':null,'stroke-linecap':'round',class:k?null:'ln'},svg)});
+  const lp=s.pts[s.pts.length-1];ends.push({y:Yy(lp[1]),x:X(lp[0]),s})});
+ ends.sort((a,b)=>a.y-b.y);for(let i=1;i<ends.length;i++)if(ends[i].y-ends[i-1].y<17)ends[i].y=ends[i-1].y+17;
+ ends.forEach(e=>{const t=txt(svg,e.x+8,e.y+5,e.s.name,'lbl');t.style.fill=cv(e.s.c)})}
+/* staafdiagram per jaar */
+function bars(svg,{data,lo,hi,step,f,title,hl}){const m={l:70,r:20,t:52,b:42},n=data.length,bw=(W-m.l-m.r)/n,Yy=lin(lo,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,f(v),'','end')}
+ data.forEach(([lab,v,c],i)=>{el('rect',{x:m.l+i*bw+bw*.16,y:Yy(v),width:bw*.68,height:Yy(lo)-Yy(v),fill:cv(c),class:'bar up',style:`transition-delay:${i*.03}s`},svg);
+  if(!hl||hl.includes(i))txt(svg,m.l+(i+.5)*bw,Yy(v)-7,f(v),'lbl sm','middle');if(n<=12||i%5===0)txt(svg,m.l+(i+.5)*bw,H-m.b+22,lab,'lbl mut sm','middle')})}
+/* horizontale divergerende staven */
+function hbars(svg,{rows,lo,hi,title,f}){const m={l:270,r:70,t:60,b:20},X=lin(lo,hi,m.l,W-m.r),bh=Math.min(40,(H-m.t-m.b)/rows.length-14);
+ txt(svg,m.l,28,title,'lbl mut');el('line',{x1:X(0),x2:X(0),y1:m.t-10,y2:H-m.b,stroke:cv('--ink2')},svg);
+ rows.forEach(([lab,v,c,sub],i)=>{const y=m.t+i*(bh+14),x0=Math.min(X(0),X(v)),w=Math.abs(X(v)-X(0));
+  el('rect',{x:x0,y,width:w,height:bh,rx:3,fill:cv(c),class:'bar '+(v<0?'lft':'r'),style:`transition-delay:${i*.07}s`},svg);
+  txt(svg,m.l-12,y+bh/2+(sub?-1:5),lab,'lbl','end');if(sub)txt(svg,m.l-12,y+bh/2+14,sub,'lbl mut sm','end');
+  txt(svg,v<0?x0-8:x0+w+8,y+bh/2+5,f(v),'lbl',v<0?'end':'start')})}
+/* gestapelde 100%-staven */
+function stack(svg,rows,title){const m={l:110,r:20,t:60,b:30},X=lin(0,100,m.l,W-m.r),bh=70;
+ txt(svg,m.l,28,title,'lbl mut');rows.forEach(([lab,parts],i)=>{const y=m.t+40+i*(bh+70);let acc=0;txt(svg,m.l-12,y+bh/2+5,lab,'lbl big','end');
+  parts.forEach(([pl,v,c],k)=>{const x=X(acc),w=X(acc+v)-X(acc)-2;el('rect',{x,y,width:Math.max(0,w),height:bh,rx:3,fill:cv(c),class:'bar r',style:`transition-delay:${(i*4+k)*.08}s`},svg);
+   if(v>7){txt(svg,x+8,y+24,pl,'lbl sm').style.fill='#fff';const t=txt(svg,x+8,y+50,v.toFixed(0)+'%','lbl big');t.style.fill='#fff'}acc+=v})})}
+/* halters */
+function dumb(svg,{rows,lo,hi,step,title,ca,cb}){const m={l:250,r:60,t:70,b:20},X=lin(lo,hi,m.l,W-m.r),rh=(H-m.t-m.b)/rows.length;
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi;v+=step){el('line',{x1:X(v),x2:X(v),y1:m.t-12,y2:H-m.b},G);txt(G,X(v),m.t-20,v+'%','','middle')}
+ rows.forEach(([lab,a,b],i)=>{const y=m.t+i*rh+rh/2;txt(svg,m.l-14,y+5,lab,'lbl','end');el('line',{x1:X(a),x2:X(b),y1:y,y2:y,stroke:cv('--muted'),'stroke-width':6,'stroke-linecap':'round'},svg);
+  el('circle',{cx:X(a),cy:y,r:7.5,fill:cv(ca)},svg);el('circle',{cx:X(b),cy:y,r:9,fill:cv(cb)},svg);
+  txt(svg,X(a)+(b>=a?-14:14),y+5,a.toFixed(1).replace('.',','),'lbl sm',b>=a?'end':'start');txt(svg,X(b)+(b>=a?14:-14),y+5,b.toFixed(1).replace('.',','),'lbl',b>=a?'start':'end')})}
+/* kaart */
+const KC=Math.cos(51*Math.PI/180);
+function proj(feats){let b=[1e9,-1e9,1e9,-1e9];feats.forEach(f=>f.r.forEach(r=>r.forEach(([x,y])=>{b=[Math.min(b[0],x*KC),Math.max(b[1],x*KC),Math.min(b[2],-y),Math.max(b[3],-y)]})));const s=Math.min(780/(b[1]-b[0]),400/(b[3]-b[2]));return{P:([x,y])=>[10+(x*KC-b[0])*s,60+(-y-b[2])*s],h:Math.ceil(70+(b[3]-b[2])*s)}}
+const PG=proj(D.G_gem),PA=proj(D.G_arr);
+const pathD=(f,P)=>f.r.map(r=>'M'+r.map(q=>P(q).map(v=>v.toFixed(1)).join(',')).join('L')+'Z').join('');
+const mix=(c,p)=>`color-mix(in srgb, ${c} ${Math.round(p)}%, var(--card))`;
+const div=(v,mx)=>v==null?'var(--muted)':mix(v<0?'var(--neg)':'var(--pos)',10+85*Math.min(1,Math.sqrt(Math.abs(v)/mx)));
+function gemMap(svg,h,title){svg.setAttribute('viewBox',`0 0 800 ${PG.h}`);txt(svg,10,28,title,'lbl mut');
+ D.G_gem.forEach(f=>{const g=D.gem[f.n]&&D.gem[f.n][h],v=g&&g[0]>=100?(g[2]/g[0]-1)*100:null,p=el('path',{d:pathD(f,PG.P),class:'gem',style:`fill:${div(v,25)}`},svg);el('title',{},p).textContent=f.n+(v==null?': minder dan 100 leerlingen in 2016-17':`: ${fmt(g[0])} → ${fmt(g[2])} (${pct(v)})`)});
+ const sx=740,sy=PG.h-60;el('rect',{x:sx-16,y:sy-16,width:32,height:32,rx:6,style:`fill:${div((D.typ[h+'|Brussel'][9]/D.typ[h+'|Brussel'][0]-1)*100,25)}`},svg);txt(svg,sx,sy+34,'Brussel','lbl sm','middle')}
+function arrMap(svg,g,title){svg.setAttribute('viewBox',`0 0 800 ${PA.h}`);txt(svg,10,28,title,'lbl mut');
+ const v=Object.fromEntries(Object.entries(D.pop_arr).map(([a,d])=>[a,(d[g][2]/d[g][0]-1)*100]));
+ D.G_arr.forEach(f=>{const p=el('path',{d:pathD(f,PA.P),class:'arr',style:`fill:${div(v[f.n],12)}`},svg);el('title',{},p).textContent=`${f.n}: ${pct(v[f.n])}`});
+ D.G_arr.forEach(f=>{const big=f.r.reduce((a,r)=>r.length>a.length?r:a,f.r[0]);let cx=0,cy=0;big.forEach(q=>{const[x,y]=PA.P(q);cx+=x;cy+=y});cx/=big.length;cy/=big.length;txt(svg,cx,cy+5,pct(v[f.n],0),'alab','middle')})}
+/* scènes */
+const idx=a=>a.map(v=>v/a[0]*100);
+const S={
+ c1:[s=>{const k=idx(D.niv.kleuter),l=idx(D.niv.lager),se=idx(D.sec_zonder7);lines(s,{series:[{name:'Secundair +15%',c:'--s',pts:Y.map((y,i)=>[y,se[i]])},{name:'Lager −0,7%',c:'--l',pts:Y.map((y,i)=>[y,l[i]])},{name:'Kleuter −4,6%',c:'--k',pts:Y.map((y,i)=>[y,k[i]])}],x0:2016,x1:2025,lo:94,hi:116,step:4,yf:v=>v,title:'Index, 2016-17 = 100',xt:[2016,2018,2020,2022,2024,2025]});legend('g1',[['Kleuter','--k'],['Lager','--l'],['Secundair (zonder 7e jaar)','--s']])},
+  s=>{const z=D.sec_zonder7,z7=D.sec_7,a=D.sec_1A;hbars(s,{rows:[['Secundair totaal',(z[9]+z7[9])-(z[8]+z7[8]),'--ink2'],['7e jaar',z7[9]-z7[8],'--neg','oud 7e jaar → nieuw 7e leerjaar'],['Rest van het secundair',z[9]-z[8],'--s'],['waarvan 1e leerjaar A',a[9]-a[8],'--k','instroom']],lo:-6200,hi:2200,title:'Verschil 2025-26 tegenover 2024-25, leerlingen',f:v=>(v>0?'+':'−')+fmt(Math.abs(v))});legend('g1',[])},
+  s=>{const P=D.pop,ix=g=>P.yrs.map((y,i)=>[y,P[g][i]/P[g][P.yrs.indexOf(2016)]*100]);lines(s,{series:[{name:'12-17 jaar',c:'--s',pts:ix('12-17')},{name:'6-11 jaar',c:'--l',pts:ix('6-11')},{name:'3-5 jaar',c:'--k',pts:ix('3-5')}],x0:2010,x1:2040,lo:85,hi:125,step:10,yf:v=>v,title:'Bevolking, index 2016 = 100',cut:2026,xt:[2010,2015,2020,2025,2030,2035,2040]});legend('g1',[['3-5 jaar','--k'],['6-11 jaar','--l'],['12-17 jaar','--s']])},
+  s=>{const P=D.pop;bars(s,{data:P.yrs.map((y,i)=>[String(y),P['0'][i],y>2025?'--muted':'--k']),lo:55000,hi:75000,step:5000,f:fmt,title:'Kinderen van 0 jaar op 1 januari (as begint bij 55.000)',hl:[6,15,30]});legend('g1',[['Waarneming','--k'],['Vooruitzicht','--muted']])}],
+ c2:[s=>{gemMap(s,'kleuter','Kleuters, verschil 2016-17 → 2025-26 per gemeente');legend('g2',[['Minder kleuters','--neg'],['Meer kleuters','--pos'],['Minder dan 100 in 2016-17','--muted']])},
+  s=>{const r=t=>{const k=D.typ;return['kleuter','lager','secundair'].map(h=>(k[h+'|'+t][9]/k[h+'|'+t][0]-1)*100)};const c=r('Centrumsteden'),re=r('Rest van Vlaanderen'),b=r('Brussel');
+   hbars(s,{rows:[['Kleuter · centrumsteden',c[0],'--k'],['Kleuter · rest van Vlaanderen',re[0],'--k'],['Kleuter · Brussel',b[0],'--k'],['Lager · centrumsteden',c[1],'--l'],['Lager · rest van Vlaanderen',re[1],'--l'],['Lager · Brussel',b[1],'--l'],['Secundair · centrumsteden',c[2],'--s'],['Secundair · rest',re[2],'--s'],['Secundair · Brussel',b[2],'--s']],lo:-10,hi:36,title:'Verschil 2016-17 → 2025-26',f:v=>pct(v)});legend('g2',[['Kleuter','--k'],['Lager','--l'],['Secundair','--s']])},
+  s=>{gemMap(s,'secundair','Secundair, verschil 2016-17 → 2025-26 per gemeente');legend('g2',[['Minder leerlingen','--neg'],['Meer leerlingen','--pos'],['Geen of weinig secundair','--muted']])},
+  s=>{arrMap(s,'12-17','12- tot 17-jarigen, verschil 2026 → 2036 per arrondissement (vooruitzicht)');legend('g2',[['Daling','--neg'],['Groei','--pos']])}],
+ c3:[s=>{lines(s,{series:[{name:'Secundair 5,2%',c:'--bu',pts:Y.map((y,i)=>[y,D.bu_aandeel_sec[i]])},{name:'Basis 4,2%',c:'--l',pts:Y.map((y,i)=>[y,D.bu_aandeel_basis[i]])}],x0:2016,x1:2025,lo:3.5,hi:5.5,step:.5,yf:v=>v.toFixed(1).replace('.',',')+'%',title:'Aandeel buitengewoon onderwijs',xt:[2016,2018,2020,2022,2024,2025]});legend('g3',[['Basisonderwijs','--l'],['Secundair','--bu']])},
+  s=>{const T=D['type|buso'],nm={'Type 9':'Type 9','Type BA':'Basisaanbod','Type 2':'Type 2','Type 3':'Type 3','Type 4':'Type 4'},col={'Type 9':'--bu','Type BA':'--l','Type 2':'--s','Type 3':'--k','Type 4':'--ink2'};
+   lines(s,{series:Object.keys(nm).map(t=>({name:nm[t],c:col[t],w:t==='Type 9'?4:2.5,pts:Y.map((y,i)=>[y,T[t][i]])})),x0:2016,x1:2025,lo:0,hi:10000,step:2000,yf:fmt,title:'Leerlingen BuSO per type',xt:[2016,2018,2020,2022,2024,2025]});legend('g3',[['Type 9 (autisme)','--bu'],['Basisaanbod','--l'],['Type 2','--s'],['Type 3','--k'],['Type 4','--ink2']])},
+  s=>{const O=D.ov_type_2025,ovs=[['OV1','Sociale aanpassing'],['OV2','Soc.aanpassing en arbeidsgeschiktmaking'],['OV3','Beroepsonderwijs'],['OV4','Algemeen,technisch,kunst- en beroepsond.']];
+   const m={l:80,r:90,t:60,b:30},mx=11000,X=lin(0,mx,m.l,W-m.r),bh=58;txt(s,m.l,28,'Leerlingen BuSO per opleidingsvorm, 2025-26 (2016-17 tussen haakjes)','lbl mut');
+   const types=[['Type 9','--bu'],['Type BA','--l'],['Type 2','--s'],['Type 3','--k']];
+   ovs.forEach(([o,key],i)=>{const y=m.t+20+i*(bh+36);let acc=0;txt(s,m.l-12,y+bh/2+6,o,'lbl big','end');
+    const tot=Object.entries(O).filter(([k])=>k.startsWith(key+'|')).reduce((a,[,v])=>a+v,0);
+    types.concat([['ander','--muted']]).forEach(([t,c],k)=>{const v=t==='ander'?tot-types.reduce((a,[tt])=>a+(O[key+'|'+tt]||0),0):(O[key+'|'+t]||0);if(v<=0)return;
+     el('rect',{x:X(acc),y,width:X(acc+v)-X(acc)-1,height:bh,rx:2,fill:cv(c),class:'bar r',style:`transition-delay:${(i*5+k)*.05}s`},s);acc+=v});
+    txt(s,X(acc)+8,y+bh/2+6,`${fmt(tot)} (${fmt(D.ov[key][0])})`,'lbl')});legend('g3',[['Type 9','--bu'],['Basisaanbod','--l'],['Type 2','--s'],['Type 3','--k'],['Ander type','--muted']])},
+  s=>{const J=D.jongens_2025,N=D.nb;dumb(s,{rows:[['Jongens · lager',J.lager,J['bu lager']],['Jongens · secundair',J.secundair,J.buso],['Niet-Belg · lager',N.lager[9],N['bu lager'][9]],['Niet-Belg · secundair',N.secundair[9],N.buso[9]]],lo:0,hi:70,step:10,title:'Gewoon tegenover buitengewoon onderwijs, 2025-26',ca:'--l',cb:'--bu'});legend('g3',[['Gewoon','--l'],['Buitengewoon','--bu']])}],
+ c4:[s=>{const f=D.fin_2025,o=D.vorm_2016,tf=f['Doorstroomfinaliteit']+f['Dubbele finaliteit']+f['Arbeidsmarktfinaliteit'],to=o.aso+o.tso+o.kso+o.bso;
+   stack(s,[['2016-17',[['aso',o.aso/to*100,'--l'],['tso',o.tso/to*100,'--s'],['kso',o.kso/to*100,'--acc'],['bso',o.bso/to*100,'--k']]],['2025-26',[['doorstroom',f['Doorstroomfinaliteit']/tf*100,'--l'],['dubbele finaliteit',f['Dubbele finaliteit']/tf*100,'--s'],['arbeidsmarkt',f['Arbeidsmarktfinaliteit']/tf*100,'--k']]]],'Leerlingen in de 2e en 3e graad');legend('g4',[])},
+  s=>{const sh=D.sec_1B.map((b,i)=>b/(b+D.sec_1A[i])*100);lines(s,{series:[{name:'1B 14,6%',c:'--k',w:4,pts:Y.map((y,i)=>[y,sh[i]])}],x0:2016,x1:2025,lo:12,hi:15,step:.5,yf:v=>v.toFixed(1).replace('.',',')+'%',title:'Aandeel eerste jaar B in de instroom secundair',xt:[2016,2018,2020,2022,2024,2025]});legend('g4',[])},
+  s=>{bars(s,{data:Y.map((y,i)=>[YL(y),D.okan[i],y===2022?'--acc':'--l']),lo:0,hi:9000,step:3000,f:fmt,title:'Leerlingen in OKAN'});legend('g4',[['2022-23: jaar na de inval in Oekraïne','--acc']])},
+  s=>{bars(s,{data:Y.map((y,i)=>[YL(y),D.sec_7[i],y===2025?'--k':'--muted']),lo:0,hi:18000,step:6000,f:fmt,title:'Leerlingen in een 7e jaar (oud 7e jaar en Se-n-Se, vanaf 2025-26 het nieuwe 7e leerjaar)'});legend('g4',[['Oud 7e jaar','--muted'],['Nieuw 7e leerjaar','--k']])}],
+ c5:[s=>{const N=D.nb;lines(s,{series:[{name:'Buitengewoon lager',c:'--bu',w:2,pts:Y.map((y,i)=>[y,N['bu lager'][i]])},{name:'Kleuter',c:'--k',pts:Y.map((y,i)=>[y,N.kleuter[i]])},{name:'Lager',c:'--l',pts:Y.map((y,i)=>[y,N.lager[i]])},{name:'Secundair',c:'--s',pts:Y.map((y,i)=>[y,N.secundair[i]])}],x0:2016,x1:2025,lo:6,hi:18,step:2,yf:v=>v+'%',title:'Aandeel leerlingen zonder Belgische nationaliteit',xt:[2016,2018,2020,2022,2024,2025]});legend('g5',[['Kleuter','--k'],['Lager','--l'],['Secundair','--s'],['Buitengewoon lager','--bu']])},
+  s=>{const T=D.nb_typ_2025;hbars(s,{rows:[['Centrumsteden',T.Centrumsteden,'--k'],['Brussel (Nederlandstalig)',T.Brussel,'--l'],['Rest van Vlaanderen',T['Rest van Vlaanderen'],'--s']],lo:0,hi:20,title:'Aandeel zonder Belgische nationaliteit, 2025-26 (kleuter tot secundair)',f:v=>v.toFixed(1).replace('.',',')+'%'});legend('g5',[])}],
+ c6:[s=>{const N=D.net,sh=(niv,n,i)=>{const tot=Object.keys(N).filter(k=>k.startsWith(niv+'|')).reduce((a,k)=>a+N[k][i],0);return N[niv+'|'+n][i]/tot*100};
+   dumb(s,{rows:[['GO · basis',sh('basis','Gemeenschapsonderwijs',0),sh('basis','Gemeenschapsonderwijs',9)],['GO · secundair',sh('secundair','Gemeenschapsonderwijs',0),sh('secundair','Gemeenschapsonderwijs',9)],['Gemeentelijk · basis',sh('basis','Gemeente',0),sh('basis','Gemeente',9)],['Vrij · basis',sh('basis','Vrij',0),sh('basis','Vrij',9)],['Vrij · secundair',sh('secundair','Vrij',0),sh('secundair','Vrij',9)]],lo:10,hi:80,step:10,title:'Aandeel van de leerlingen, 2016-17 → 2025-26',ca:'--muted',cb:'--s'});legend('g6',[['2016-17','--muted'],['2025-26','--s']])}]
+};
+const cur={};
+function observe(id,fn){const steps=[...document.querySelectorAll('#'+id+' .step')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('is-active',s===e.target));fn(+e.target.dataset.s)}}),{rootMargin:matchMedia('(max-width:860px)').matches?'-68% 0px -12% 0px':'-45% 0px -45% 0px'});steps.forEach(s=>io.observe(s))}
+Object.keys(S).forEach((c,ci)=>{const sv=document.getElementById(c);cur[c]=0;stage(sv,S[c][0]);observe('sc'+(ci+1),i=>{if(cur[c]===i)return;cur[c]=i;stage(sv,S[c][i])})});
+function redraw(){Object.keys(S).forEach(c=>{const sv=document.getElementById(c);sv.innerHTML='';stage(sv,S[c][cur[c]])})}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+</script>
+</body>
+</html>
