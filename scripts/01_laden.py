@@ -18,7 +18,7 @@ HS = {"111": "kleuter", "211": "lager", "311": "secundair", "312": "dbso",
 KEEP = ["hoofdstructuur_inschrijving_code", "graad_so", "leerjaar", "onderwijsvorm", "finaliteit", "domein",
         "studierichting", "opleidingsvorm", "type_buitengewoon_onderwijs", "onderwijsnet", "soort_inrichtende_macht",
         "geslacht", "belg_nietbelg", "school_krijgt_omkadering_gok", "vestiging_provincie_naam",
-        "vestiging_fusiegemeente_naam", "taal_code", "instellingsnummer", "administratieve_groep"]
+        "vestiging_fusiegemeente_naam", "taal_code", "instellingsnummer", "intern_volgnr_vpl", "administratieve_groep"]
 
 
 def main(y0=2016, y1=2025):

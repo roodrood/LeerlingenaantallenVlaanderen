@@ -73,6 +73,14 @@ svg.stage{transition:opacity .22s}svg.stage:not(.on){opacity:0}
 details{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;max-width:84ch}
 summary{cursor:pointer;font-weight:600}
 details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
+.sig{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:26px 0}
+.sig article{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:10px;padding:16px 18px}
+.sig h3{font-size:20px;line-height:1.15;margin:0 0 8px}
+.sig .d{font:700 34px/1 var(--f-d);color:var(--c)}
+.sig .d small{font:500 13px var(--f-b);color:var(--ink2);margin-left:6px}
+.sig .yrs{display:flex;gap:14px;margin:10px 0;font-size:13px;color:var(--ink2)}.sig .yrs b{display:block;font:600 16px var(--f-d);color:var(--ink)}
+.sig p{margin:0;font-size:15px;line-height:1.45}
+.note{font-size:14px;color:var(--ink2);max-width:70ch}
 .progress{position:fixed;top:0;left:0;height:3px;background:var(--acc);width:0;z-index:10}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
 @media (max-width:860px){
@@ -146,15 +154,40 @@ details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
 <div class="scrolly" id="sc6"><div class="steps">
  <div class="step" data-s="0"><div class="card"><h3>Twee procentpunt in tien jaar</h3><p>Het GO ging in het basisonderwijs van 15,4% naar 16,6% van de leerlingen, in het secundair van 19,2% naar 21,1%. Het vrij onderwijs verloor in beide.</p><p>Het gemeentelijk onderwijs, vooral sterk in het basisonderwijs, blijft ongeveer stabiel.</p></div></div>
 </div><div class="graphic"><figure><svg id="c6" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g6"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 7</div><h2>Minder vestigingsplaatsen, meer schoolnummers</h2><p>Hoe groot zijn scholen, en hoeveel plekken zijn er waar les gegeven wordt? Een school (instellingsnummer) kan meerdere vestigingsplaatsen hebben.</p></section>
+<div class="scrolly" id="sc7"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>142 vestigingsplaatsen minder in het basisonderwijs</h3><p>Het gewoon basisonderwijs telde in 2016-17 nog 3.544 vestigingsplaatsen, nu 3.402. Het aantal scholen steeg wel, van 2.418 naar 2.530.</p><p>Dat zijn zelden nieuwe gebouwen. Van de 147 adressen van de nieuwe instellingsnummers had 97 in 2016-17 al een school: het gaat vooral om scholen die opgesplitst of hernummerd werden.</p><p class="src">School = instellingsnummer. Vestigingsplaats = instellingsnummer + intern volgnummer van de vestigingsplaats. Kleuter en lager samen.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>De kleinste vestigingen verdwijnen</h3><p>Het aantal vestigingsplaatsen met minder dan 50 leerlingen daalde van 340 naar 251. In de middengroottes verandert weinig.</p><p>De mediaan steeg van 181 naar 187 leerlingen per vestigingsplaats, terwijl er 2,2% minder kinderen in het basisonderwijs zitten.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Kleine scholen: vooral buiten de steden</h3><p>Buiten de centrumsteden en Brussel heeft nog 24,1% van de vestigingsplaatsen minder dan 100 leerlingen (26,6% in 2016-17). In de centrumsteden is dat 14,9%.</p><p>In het Nederlandstalig onderwijs in Brussel zakte het aandeel kleine vestigingen het snelst: van 22,7% naar 12,7%.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Het secundair breidde uit en krimpt nu in</h3><p>Het aantal vestigingsplaatsen in het secundair steeg van 1.334 in 2016-17 naar 1.540 in 2023-24. Sindsdien kwamen er 54 minder bij: 1.486 nu. Het aantal scholen ging van 946 naar 998.</p><p>12% van de vestigingsplaatsen in het secundair telt minder dan 50 leerlingen. Dat zijn vaak kleine campussen of locaties voor één opleiding.</p></div></div>
+</div><div class="graphic"><figure><svg id="c7" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g7"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 8</div><h2>Het aanbod in het secundair versnippert</h2><p>Hoeveel studierichtingen bieden scholen aan, en hoeveel leerlingen zitten er in elk? We tellen elke studierichting in een school als één aanbieding, in de 2e en de 3e graad.</p></section>
+<div class="scrolly" id="sc8"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Bijna een op vier aanbiedingen telt minder dan 10 leerlingen</h3><p>In 2025-26 hebben 2.876 van de 12.132 aanbiedingen minder dan 10 leerlingen, over twee leerjaren samen. In de 3e graad is dat 30% (2.109 van 7.045), in de 2e graad 15% (767 van 5.087).</p><p>Ze vertegenwoordigen samen een klein deel van de leerlingen: 7,4% in de 3e graad, 2,7% in de 2e.</p><p class="src">Aanbieding = studierichting × school (instellingsnummer), beide leerjaren van de graad samen. Zonder 7e jaar en OKAN.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>Het aanbod groeide sneller dan het aantal leerlingen</h3><p>Sinds 2019-20, toen de 2e en 3e graad nog de oude structuur hadden, groeide het voltijds aanbod in de 2e graad met 21%, het aantal leerlingen met 10%. In de 3e graad: aanbod +18%, leerlingen +14%.</p><p>Een school biedt nu gemiddeld 6,7 richtingen aan in de 2e graad (5,7 in 2019-20) en 9,4 in de 3e graad (8,1).</p><p class="src">Zonder duaal leren, dat in 2019-20 nog in het deeltijds onderwijs zat.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Klein: vooral duaal en doorstroom in de 3e graad</h3><p>Duaal leren voegde ongeveer 1.000 aanbiedingen toe. 74% daarvan heeft in de 3e graad minder dan 10 leerlingen.</p><p>In de doorstroomrichtingen van de 3e graad is 35% klein. Dat was in het oude aso al zo. De arbeidsmarktrichtingen (voltijds) zijn het minst versnipperd.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Veel scholen, weinig leerlingen per school</h3><p>Latijn-Moderne talen wordt in 253 scholen aangeboden, met een mediaan van 5 leerlingen per school. Grieks-Latijn in 82 scholen, met een mediaan van 3.</p><p>Scholen zetten zulke richtingen vaak samen in gemeenschappelijke lessen. Een kleine richting is dus niet altijd een kleine klas. Maar de specifieke vakken kosten wel lesuren.</p></div></div>
+ <div class="step" data-s="4"><div class="card"><h3>40 richtingen bij één school</h3><p>22 richtingen in de 3e graad en 18 in de 2e graad bestaan maar in één school. Vaak zijn dat unieke opleidingen, zoals uurwerkmaken, diamantbewerking, binnenvaart of ballet, of duale varianten.</p><p>Aan de andere kant worden 17 richtingen per graad door meer dan 100 scholen aangeboden.</p></div></div>
+</div><div class="graphic"><figure><svg id="c8" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g8"></div></figure></div></div>
+
+<section class="outro" id="signalen">
+ <div class="kicker">Hoofdstuk 9</div>
+ <h2>De laatste twee jaar: acht signalen</h2>
+ <p class="note">Vergelijking van 2023-24, 2024-25 en 2025-26. Een verschil van één jaar is klein en kan toeval of een registratiewijziging zijn. Lees deze signalen als vragen om op te volgen, niet als vaststaande trends.</p>
+ <div class="sig" id="sig"></div>
+</section>
 </main>
 
 <section class="outro">
  <div class="kicker">Wat dit betekent</div>
- <h2>Vier vragen voor de komende tien jaar</h2>
+ <h2>Vijf vragen voor de komende tien jaar</h2>
  <div class="cards">
   <div><b>Basisonderwijs</b><p>De kleuterklas bereikt tussen 2030 en 2032 haar dal en groeit daarna weer. Wordt de capaciteit nu afgebouwd, terwijl ze enkele jaren later opnieuw nodig is?</p></div>
   <div><b>Secundair</b><p>De piek is bereikt. Vanaf 2027 dalen de leerlingenaantallen in bijna elk arrondissement. Welke scholen en richtingen krijgen het eerst de krimp te voelen?</p></div>
   <div><b>Buitengewoon</b><p>Type 9 blijft groeien. Hebben de scholen voor buitengewoon onderwijs, en vooral OV4, de plaatsen en de expertise?</p></div>
+  <div><b>Aanbod</b><p>Het aanbod groeide sneller dan het aantal leerlingen. Als die vanaf 2027 dalen, welke richtingen worden dan te klein om in elke school te blijven?</p></div>
   <div><b>Arbeidsmarkt</b><p>Het 7e jaar telt 40% minder leerlingen. Wat betekent dat voor de instroom in knelpuntberoepen?</p></div>
  </div>
  <details><summary>Bronnen en methode</summary><ul>
@@ -163,6 +196,8 @@ details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
   <li>Bevolking: Federaal Planbureau en Statbel, bevolking per arrondissement en leeftijd op 1 januari; waarnemingen tot 2025, vanaf 2026 vooruitzichten. Vlaanderen = de 22 Vlaamse arrondissementen.</li>
   <li>Kaarten: gemeente- en arrondissementsgrenzen van Informatie Vlaanderen (VRBG 2025). Gemeenten met minder dan 100 leerlingen op het betrokken niveau in 2016-17 zijn grijs.</li>
   <li>Buitengewoon onderwijs: type 1 en 8 werden in 2015-2018 vervangen door het basisaanbod (BA); type 9 bestaat sinds 2015. Vergelijkingen per type over die jaren heen tonen dus deels een registratiewijziging.</li>
+  <li>Schoolgrootte: school = instellingsnummer, vestigingsplaats = instellingsnummer + intern volgnummer van de vestigingsplaats. Een nieuwe vestigingsplaats kan dus ook een hernummering zijn. Gewoon onderwijs; basis = kleuter en lager samen.</li>
+  <li>Aanbod: aanbieding = studierichting (en, voor 2021, onderwijsvorm) in een school, 2e of 3e graad, beide leerjaren samen, zonder 7e jaar en OKAN. Duaal = administratieve groep die eindigt op DBSO of SYN, of "duaal" in de naam. Vergelijkingen met 2019-20 laten duaal leren weg.</li>
   <li>Centrumsteden: Aalst, Antwerpen, Brugge, Genk, Gent, Hasselt, Kortrijk, Leuven, Mechelen, Oostende, Roeselare, Sint-Niklaas, Turnhout.</li>
  </ul></details>
 </section>
@@ -212,6 +247,11 @@ function dumb(svg,{rows,lo,hi,step,title,ca,cb}){const m={l:250,r:60,t:70,b:20},
  rows.forEach(([lab,a,b],i)=>{const y=m.t+i*rh+rh/2;txt(svg,m.l-14,y+5,lab,'lbl','end');el('line',{x1:X(a),x2:X(b),y1:y,y2:y,stroke:cv('--muted'),'stroke-width':6,'stroke-linecap':'round'},svg);
   el('circle',{cx:X(a),cy:y,r:7.5,fill:cv(ca)},svg);el('circle',{cx:X(b),cy:y,r:9,fill:cv(cb)},svg);
   txt(svg,X(a)+(b>=a?-14:14),y+5,a.toFixed(1).replace('.',','),'lbl sm',b>=a?'end':'start');txt(svg,X(b)+(b>=a?14:-14),y+5,b.toFixed(1).replace('.',','),'lbl',b>=a?'start':'end')})}
+/* gegroepeerde staven */
+function gbars(svg,{cats,a,b,hi,step,title,ca,cb}){const m={l:70,r:20,t:52,b:42},n=cats.length,bw=(W-m.l-m.r)/n,Yy=lin(0,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=0;v<=hi;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,fmt(v),'','end')}
+ cats.forEach((c,i)=>{[[a[i],ca,.14],[b[i],cb,.5]].forEach(([v,col,o],k)=>{const x=m.l+i*bw+bw*o;el('rect',{x,y:Yy(v),width:bw*.34,height:Yy(0)-Yy(v),fill:cv(col),class:'bar up',style:`transition-delay:${(i*2+k)*.04}s`},svg);txt(svg,x+bw*.17,Yy(v)-6,fmt(v),'lbl sm','middle')});
+  txt(svg,m.l+(i+.5)*bw,H-m.b+22,c,'lbl mut sm','middle')})}
 /* kaart */
 const KC=Math.cos(51*Math.PI/180);
 function proj(feats){let b=[1e9,-1e9,1e9,-1e9];feats.forEach(f=>f.r.forEach(r=>r.forEach(([x,y])=>{b=[Math.min(b[0],x*KC),Math.max(b[1],x*KC),Math.min(b[2],-y),Math.max(b[3],-y)]})));const s=Math.min(780/(b[1]-b[0]),400/(b[3]-b[2]));return{P:([x,y])=>[10+(x*KC-b[0])*s,60+(-y-b[2])*s],h:Math.ceil(70+(b[3]-b[2])*s)}}
@@ -258,8 +298,31 @@ const S={
  c5:[s=>{const N=D.nb;lines(s,{series:[{name:'Buitengewoon lager',c:'--bu',w:2,pts:Y.map((y,i)=>[y,N['bu lager'][i]])},{name:'Kleuter',c:'--k',pts:Y.map((y,i)=>[y,N.kleuter[i]])},{name:'Lager',c:'--l',pts:Y.map((y,i)=>[y,N.lager[i]])},{name:'Secundair',c:'--s',pts:Y.map((y,i)=>[y,N.secundair[i]])}],x0:2016,x1:2025,lo:6,hi:18,step:2,yf:v=>v+'%',title:'Aandeel leerlingen zonder Belgische nationaliteit',xt:[2016,2018,2020,2022,2024,2025]});legend('g5',[['Kleuter','--k'],['Lager','--l'],['Secundair','--s'],['Buitengewoon lager','--bu']])},
   s=>{const T=D.nb_typ_2025;hbars(s,{rows:[['Centrumsteden',T.Centrumsteden,'--k'],['Brussel (Nederlandstalig)',T.Brussel,'--l'],['Rest van Vlaanderen',T['Rest van Vlaanderen'],'--s']],lo:0,hi:20,title:'Aandeel zonder Belgische nationaliteit, 2025-26 (kleuter tot secundair)',f:v=>v.toFixed(1).replace('.',',')+'%'});legend('g5',[])}],
  c6:[s=>{const N=D.net,sh=(niv,n,i)=>{const tot=Object.keys(N).filter(k=>k.startsWith(niv+'|')).reduce((a,k)=>a+N[k][i],0);return N[niv+'|'+n][i]/tot*100};
-   dumb(s,{rows:[['GO · basis',sh('basis','Gemeenschapsonderwijs',0),sh('basis','Gemeenschapsonderwijs',9)],['GO · secundair',sh('secundair','Gemeenschapsonderwijs',0),sh('secundair','Gemeenschapsonderwijs',9)],['Gemeentelijk · basis',sh('basis','Gemeente',0),sh('basis','Gemeente',9)],['Vrij · basis',sh('basis','Vrij',0),sh('basis','Vrij',9)],['Vrij · secundair',sh('secundair','Vrij',0),sh('secundair','Vrij',9)]],lo:10,hi:80,step:10,title:'Aandeel van de leerlingen, 2016-17 → 2025-26',ca:'--muted',cb:'--s'});legend('g6',[['2016-17','--muted'],['2025-26','--s']])}]
+   dumb(s,{rows:[['GO · basis',sh('basis','Gemeenschapsonderwijs',0),sh('basis','Gemeenschapsonderwijs',9)],['GO · secundair',sh('secundair','Gemeenschapsonderwijs',0),sh('secundair','Gemeenschapsonderwijs',9)],['Gemeentelijk · basis',sh('basis','Gemeente',0),sh('basis','Gemeente',9)],['Vrij · basis',sh('basis','Vrij',0),sh('basis','Vrij',9)],['Vrij · secundair',sh('secundair','Vrij',0),sh('secundair','Vrij',9)]],lo:10,hi:80,step:10,title:'Aandeel van de leerlingen, 2016-17 → 2025-26',ca:'--muted',cb:'--s'});legend('g6',[['2016-17','--muted'],['2025-26','--s']])}],
+ c7:[s=>{const I=D['sg|basis|inst'],V=D['sg|basis|vest'];lines(s,{series:[{name:'Vestigingsplaatsen '+fmt(V.aantal[9]),c:'--l',pts:Y.map((y,i)=>[y,V.aantal[i]])},{name:'Scholen '+fmt(I.aantal[9]),c:'--k',pts:Y.map((y,i)=>[y,I.aantal[i]])}],x0:2016,x1:2025,lo:2000,hi:4000,step:500,yf:fmt,title:'Gewoon basisonderwijs: aantal scholen en vestigingsplaatsen',xt:[2016,2018,2020,2022,2024,2025]});legend('g7',[['Vestigingsplaatsen','--l'],['Scholen (instellingsnummers)','--k']])},
+  s=>{const K=D['sg|basis|klassen'];gbars(s,{cats:D.sg_klassen,a:K['2016'],b:K['2025'],hi:1200,step:300,title:'Vestigingsplaatsen basisonderwijs naar aantal leerlingen',ca:'--muted',cb:'--l'});legend('g7',[['2016-17','--muted'],['2025-26','--l']])},
+  s=>{const T=D['sg|basis|typ'],V=D['sg|basis|vest'];dumb(s,{rows:[['Brussel',T.Brussel.lt100[0],T.Brussel.lt100[9]],['Centrumsteden',T.Centrumsteden.lt100[0],T.Centrumsteden.lt100[9]],['Rest van Vlaanderen',T['Rest van Vlaanderen'].lt100[0],T['Rest van Vlaanderen'].lt100[9]],['Totaal',V.lt100[0],V.lt100[9]]],lo:0,hi:30,step:5,title:'Aandeel vestigingsplaatsen basisonderwijs met minder dan 100 leerlingen',ca:'--muted',cb:'--l'});legend('g7',[['2016-17','--muted'],['2025-26','--l']])},
+  s=>{const I=D['sg|secundair|inst'],V=D['sg|secundair|vest'];lines(s,{series:[{name:'Vestigingsplaatsen '+fmt(V.aantal[9]),c:'--s',pts:Y.map((y,i)=>[y,V.aantal[i]])},{name:'Scholen '+fmt(I.aantal[9]),c:'--k',pts:Y.map((y,i)=>[y,I.aantal[i]])}],x0:2016,x1:2025,lo:800,hi:1600,step:200,yf:fmt,title:'Gewoon secundair: aantal scholen en vestigingsplaatsen',xt:[2016,2018,2020,2022,2023,2025]});legend('g7',[['Vestigingsplaatsen','--s'],['Scholen (instellingsnummers)','--k']])}],
+ c8:[s=>{const r=g=>{const k=D.ab[g+'|2025'].kl,t=k.reduce((a,b)=>a+b,0);return[['<10 lln',k[0]/t*100,'--k'],['10-19',k[1]/t*100,'--bu'],['20-39',k[2]/t*100,'--l'],['40+',k[3]/t*100,'--s']]};stack(s,[['2e graad',r('2e graad')],['3e graad',r('3e graad')]],'Aanbiedingen naar aantal leerlingen, 2025-26');legend('g8',[['minder dan 10','--k'],['10-19','--bu'],['20-39','--l'],['40 of meer','--s']])},
+  s=>{const A=D.ab_vt,g=(gr,k)=>(A[gr+'|2025'][k]/A[gr+'|2019'][k]-1)*100;hbars(s,{rows:[['2e graad · leerlingen',g('2e graad','lln'),'--muted'],['2e graad · aanbod',g('2e graad','aanbod'),'--l'],['3e graad · leerlingen',g('3e graad','lln'),'--muted'],['3e graad · aanbod',g('3e graad','aanbod'),'--l']],lo:0,hi:25,title:'Groei 2019-20 → 2025-26, voltijds (zonder duaal)',f:v=>pct(v)});legend('g8',[['Leerlingen','--muted'],['Aanbiedingen','--l']])},
+  s=>{const K=D.ab_klein_2025,o=['Duaal','Doorstroom','Dubbele','Arbeidsmarkt'],nm={Duaal:'duaal',Doorstroom:'doorstroom',Dubbele:'dubbele finaliteit',Arbeidsmarkt:'arbeidsmarkt (voltijds)'},c={Duaal:'--k',Doorstroom:'--l',Dubbele:'--s',Arbeidsmarkt:'--acc'};
+   hbars(s,{rows:['3e graad','2e graad'].flatMap(g=>o.map(x=>[g+' · '+nm[x],K[g+'|'+x][1],c[x],fmt(K[g+'|'+x][0])+' aanbiedingen'])),lo:0,hi:80,title:'Aandeel aanbiedingen met minder dan 10 leerlingen, 2025-26',f:v=>v.toFixed(0)+'%'});legend('g8',[['Duaal','--k'],['Doorstroom','--l'],['Dubbele finaliteit','--s'],['Arbeidsmarkt','--acc']])},
+  s=>{hbars(s,{rows:D.ab_kleinst_3g.slice(0,8).map(([r,n,m])=>[r,m,/duaal/.test(r)?'--k':'--l',n+' scholen']),lo:0,hi:12,title:'Kleinste richtingen in de 3e graad (aangeboden in minstens 20 scholen): mediaan leerlingen per school',f:v=>fmt(v)});legend('g8',[['Doorstroom','--l'],['Duaal','--k']])},
+  s=>{const A=D.ab_aanb_2025;gbars(s,{cats:A['2e graad'].map(x=>x[0]),a:A['2e graad'].map(x=>x[1]),b:A['3e graad'].map(x=>x[1]),hi:70,step:10,title:'Studierichtingen naar het aantal scholen dat ze aanbiedt, 2025-26',ca:'--l',cb:'--s'});legend('g8',[['2e graad','--l'],['3e graad','--s']])}]
 };
+/* signalen */
+(()=>{const G=D.sig,L=['23-24','24-25','25-26'],nb=D.nb;
+ const C=[['Minder instromers in het secundair','1A','n','--k','Het eerste leerjaar A telt 1.037 leerlingen minder dan vorig jaar. Ook kleuter (−2.104) en lager (−2.887) dalen. Het secundair groeit nog net (+808 zonder 7e jaar), maar de instroom keert.'],
+  ['Het BuSO groeit verder','buso','n','--bu','+654 leerlingen, na +1.068 het jaar ervoor. Type 9 alleen won 426 leerlingen.'],
+  ['Buitengewoon lager daalt','bulager','n','--bu','De eerste daling sinds 2017-18. Vooral het basisaanbod krimpt: van 11.698 naar 10.985 (−6,1%). Misschien een eerste effect van het leersteundecreet (september 2023), maar dat is een hypothese.'],
+  ['Minder kleuters zonder Belgische nationaliteit','nb_kleuter','p','--k','Het aandeel daalt al twee jaar, van 13,2% naar 12,8%. In het lager en het secundair stijgt het niet verder.'],
+  ['Het GO-aandeel staat stil','go_sec','p2','--s','Na jaren van groei blijft het GO in het secundair op 21,1%. Ook in het basisonderwijs blijft het rond 16,6%.'],
+  ['Meer arbeidsmarktfinaliteit in de 3e graad','arb_3g1','p','--acc','Aandeel in het eerste leerjaar van de 3e graad. Gezondheidszorg verloor in de 3e graad 285 leerlingen (−7,9%), Welzijnswetenschappen won er 450.'],
+  ['Duaal leren groeit, maar trager','duaal','n','--s','28% meer dan twee jaar geleden. Dit jaar kwamen er nog 274 leerlingen bij.'],
+  ['Meer leerlingen in 2B','2B','n','--l','+318 leerlingen. De B-stroom groeit verder terwijl de A-stroom kleiner wordt.']];
+ document.getElementById('sig').innerHTML=C.map(([h,k,f,c,p])=>{const v=G[k],d=v[2]-v[1],fv=x=>f==='n'?fmt(x):x.toFixed(f==='p2'?2:1).replace('.',',')+'%',
+  dd=f==='n'?(d>0?'+':'−')+fmt(Math.abs(d)):(d>0?'+':'−')+Math.abs(d).toFixed(f==='p2'?2:1).replace('.',',')+' pp';
+  return `<article style="--c:var(${c})"><h3>${h}</h3><div class="d">${dd}<small>2025-26 tegenover 2024-25</small></div><div class="yrs">${v.map((x,i)=>`<span>${L[i]}<b>${fv(x)}</b></span>`).join('')}</div><p>${p}</p></article>`}).join('')})();
 const cur={};
 function observe(id,fn){const steps=[...document.querySelectorAll('#'+id+' .step')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('is-active',s===e.target));fn(+e.target.dataset.s)}}),{rootMargin:matchMedia('(max-width:860px)').matches?'-68% 0px -12% 0px':'-45% 0px -45% 0px'});steps.forEach(s=>io.observe(s))}
 Object.keys(S).forEach((c,ci)=>{const sv=document.getElementById(c);cur[c]=0;stage(sv,S[c][0]);observe('sc'+(ci+1),i=>{if(cur[c]===i)return;cur[c]=i;stage(sv,S[c][i])})});
