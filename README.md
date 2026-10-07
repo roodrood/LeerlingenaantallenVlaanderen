@@ -17,24 +17,27 @@ op basis van **open data** (Onderwijs Vlaanderen, Federaal Planbureau/Statbel, I
 8. Versnippering van het aanbod in het secundair (kleine studierichtingen, richtingen per school, aantal aanbieders)
 9. De laatste twee jaar: acht signalen (2023-24 tot 2025-26)
 
-## Bijwerken na een nieuwe telling (1 februari)
+## Alles opnieuw draaien
 
 ```bash
 pip install -r requirements.txt
-python scripts/01_laden.py 2016 2026     # downloadt de open data naar data/ en voegt samen
-python scripts/02_cijfers.py             # rekent alle cijfers -> data/verhaal.json
-python scripts/03_verhaal.py             # bouwt docs/index.html
+python scripts/alles.py
 ```
 
-Stap 2 verwacht in `data/`: `gem.json` en `arr.json` (grenzen, zie hieronder) en `pop.xlsx`
-(kopie van `bronnen/bevolking_arrondissement_FPB_Statbel.xlsx`).
+Dat ene commando doet alles: de inschrijvingen 2016-17 t/m 2025-26 downloaden (ongeveer 1 GB in `data/`), de gemeente- en
+arrondissementsgrenzen ophalen bij Informatie Vlaanderen, alle cijfers rekenen en `docs/index.html` bouwen. Wat al in `data/`
+staat, wordt niet opnieuw gedownload. Duur: enkele minuten, vooral de download.
 
-Grenzen ophalen (Informatie Vlaanderen, VRBG 2025):
+De stappen apart, als je er maar één wilt herhalen:
 
 ```bash
-curl -o data/gem.json "https://geo.api.vlaanderen.be/VRBG2025/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=VRBG2025:RefgemG100&outputFormat=application/json&srsName=EPSG:4326"
-curl -o data/arr.json "https://geo.api.vlaanderen.be/VRBG2025/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=VRBG2025:RefarrG100&outputFormat=application/json&srsName=EPSG:4326"
+python scripts/01_laden.py 2016 2025     # open data -> data/vl.pkl
+python scripts/02_cijfers.py             # alle cijfers -> data/verhaal.json
+python scripts/03_verhaal.py             # sjabloon + cijfers -> docs/index.html
 ```
+
+Na een nieuwe telling (1 februari): `python scripts/alles.py 2016 2026`, en pas in `scripts/02_cijfers.py` de jaren aan
+(`Y`, en de vaste jaartallen in de hoofdstukken over aanbod en signalen).
 
 **Let op bij een update:** de teksten in `verhaal/sjabloon.html` bevatten cijfers en conclusies. Lees ze na elke update na
 tegen de nieuwe `data/verhaal.json`; een conclusie die vandaag klopt, kan volgend jaar niet meer kloppen.
