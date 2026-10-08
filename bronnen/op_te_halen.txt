@@ -1,2 +1,0 @@
-# Eén URL per regel. Een push van dit bestand naar main start de workflow "bestand ophalen".
-https://data-onderwijs.vlaanderen.be/documenten/bestanden/leerlingenaantallen_discimus_voorlopig_1.xlsx
