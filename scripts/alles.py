@@ -49,6 +49,11 @@ def main(y0=2016, y1=2025):
     stap("01_laden").main(y0, y1)
     print("== 2/4 grenzen en bevolking")
     grenzen()
+    print("== DKO ophalen (optioneel)")
+    try:
+        stap("06_dko_laden").main(2018, y1)
+    except Exception as e:  # zonder DKO-data bouwt het verhaal gewoon zonder hoofdstuk 10
+        print("DKO overgeslagen:", e)
     print("== 3/4 cijfers rekenen")
     stap("02_cijfers").main()
     print("== 4/4 verhaal bouwen")

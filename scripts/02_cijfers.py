@@ -129,6 +129,8 @@ def main():
     out.update(schoolgrootte(a))
     out.update(aanbod(s))
     out["sig"] = signalen(a, s, out)
+    if (DATA / "dko.csv").exists():  # DKO: scripts/06_dko_laden.py
+        out["dko"] = dko(out)
 
     json.dump(out, open(DATA / "verhaal.json", "w"), ensure_ascii=False, separators=(",", ":"))
     print("ok", (DATA / "verhaal.json").stat().st_size // 1024, "kB")
@@ -208,6 +210,46 @@ def aanbod(s):
     res["ab_kleinst_3g"] = [[x.studierichting, int(x.aanb), float(x.med), int(x.lln)] for x in kl.itertuples()]
     bins = [(1, 1, "1 school"), (2, 4, "2-4"), (5, 19, "5-19"), (20, 99, "20-99"), (100, 9999, "100+")]
     res["ab_aanb_2025"] = {g: [[lab, int(((v.aanb >= lo) & (v.aanb <= hi)).sum())] for lo, hi, lab in bins] for g, v in r.groupby("graad_so")}
+    return res
+
+
+DKO_JAREN = list(range(2018, 2026))
+
+
+def dko_laden():
+    d = pd.read_csv(DATA / "dko.csv", dtype=str)
+    for c in ["totaal", "man", "vrouw"]:
+        d[c] = pd.to_numeric(d[c])
+    d["jaar"] = d.schooljaar.astype(int)
+    d["dom"] = d.administratievegroep_omschrijving.str.split().str[0]
+    g = d.administratievegroep_omschrijving.str.split().str[1].str.replace(r"^\d+", "", regex=True)
+    # graad -> leeftijd: EG 6-7 jaar, TG 8-11, DG 12-17; 'vo' (volwassenen), VG, SP en de cultuur/schrijver-opties = volwassenen
+    d["leeftijd"] = np.where(g == "EG", "6-7 jaar", np.where(g.str.match(r"^(jo)?TG"), "8-11 jaar",
+                    np.where(g.str.match(r"^(jo)?DG"), "12-17 jaar", "volwassenen")))
+    pc = pd.to_numeric(d.instellingslocatie_postcode, errors="coerce")
+    d["prov"] = np.select([pc < 1300, pc < 2000, pc < 3000, pc < 3500, pc < 4000, (pc >= 8000) & (pc < 9000), pc >= 9000],
+                          ["Brussel", "Vlaams-Brabant", "Antwerpen", "Vlaams-Brabant", "Limburg", "West-Vlaanderen", "Oost-Vlaanderen"], "?")
+    return d
+
+
+def dko(out):
+    d = dko_laden()
+    r = lambda s: [round(float(s.get(y, 0)), 1) for y in DKO_JAREN]
+    res = {"Y": DKO_JAREN, "totaal": r(d.groupby("jaar").totaal.sum())}
+    res["leeftijd"] = {k: r(v.groupby("jaar").totaal.sum()) for k, v in d.groupby("leeftijd")}
+    res["domein"] = {k: r(v.groupby("jaar").totaal.sum()) for k, v in d.groupby("dom")}
+    res["domein_leeftijd"] = {f"{a}|{b}": r(v.groupby("jaar").totaal.sum()) for (a, b), v in d.groupby(["dom", "leeftijd"])}
+    res["prov"] = {k: r(v.groupby("jaar").totaal.sum()) for k, v in d.groupby("prov") if k != "?"}
+    res["vrouw"] = [round(float(d[d.jaar == y].vrouw.sum() / d[d.jaar == y].totaal.sum() * 100), 1) for y in DKO_JAREN]
+    res["academies"] = [int(d[d.jaar == y].instelling_nummer.nunique()) for y in DKO_JAREN]
+    v = d.instelling_nummer + "-" + d.instellingslocatie_vestigingsnummer
+    res["vestigingen"] = [int(v[d.jaar == y].nunique()) for y in DKO_JAREN]
+    # deelname: inschrijvingen in academies in Vlaanderen (zonder Brussel) per 100 inwoners van die leeftijd (1 januari)
+    P, vl = out["pop"], d[d.prov != "Brussel"]
+    k = vl[vl.leeftijd.isin(["6-7 jaar", "8-11 jaar"])].groupby("jaar").totaal.sum()
+    j = vl[vl.leeftijd == "12-17 jaar"].groupby("jaar").totaal.sum()
+    res["deelname"] = {"6-11": [round(float(k[y] / P["6-11"][P["yrs"].index(y + 1)] * 100), 1) for y in DKO_JAREN],
+                       "12-17": [round(float(j[y] / P["12-17"][P["yrs"].index(y + 1)] * 100), 1) for y in DKO_JAREN]}
     return res
 
 

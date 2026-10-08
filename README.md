@@ -22,6 +22,7 @@ Let op: 1 oktober en 1 februari zijn andere momenten in het schooljaar (kleuters
 7. Schoolgrootte: minder vestigingsplaatsen, meer schoolnummers
 8. Versnippering van het aanbod in het secundair (kleine studierichtingen, richtingen per school, aantal aanbieders)
 9. De laatste twee jaar: acht signalen (2023-24 tot 2025-26)
+10. Deeltijds kunstonderwijs: groei door volwassenen en beeldende kunst (2018-19 tot 2025-26; `scripts/06_dko_laden.py`)
 
 ## Alles opnieuw draaien
 
