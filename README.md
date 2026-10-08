@@ -10,6 +10,7 @@ op basis van **open data** (Onderwijs Vlaanderen, Federaal Planbureau/Statbel, I
 `docs/voorlopig.html`: voorlopige cijfers van 1 oktober 2026 (Discimus) naast de telling van 1 februari 2026.
 Bouwen: `python scripts/04_voorlopig.py` (haalt het bestand op) en `python scripts/05_voorlopig_verhaal.py`.
 Let op: 1 oktober en 1 februari zijn andere momenten in het schooljaar (kleuters en OKAN niet vergelijkbaar).
+Handleiding om de voorlopige cijfers in een ander project te gebruiken: `docs/voorlopige-cijfers.md`.
 
 ## Hoofdstukken
 
