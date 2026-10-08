@@ -34,6 +34,7 @@ def main():
     f = DATA / "voorlopig_2026.xlsx"
     ophalen(f)
     d = pd.read_excel(f, dtype={"nummer_hoofdstructuur": str})
+    d = d[d.type_buitengewoon.astype(str) != "5"]  # ziekenhuisscholen: niet in de open data van 1 februari
     d["ag"] = d.naam_administratieve_groep.fillna("")
     a = pd.read_pickle(DATA / "vl.pkl")
     o = a[a.jaar == a.jaar.max()].copy()

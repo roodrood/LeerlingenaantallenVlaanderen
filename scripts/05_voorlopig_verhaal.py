@@ -40,6 +40,8 @@ def nieuw(d):
     d.loc[hs == "121", "cat"] = "bu kleuter"
     d.loc[hs == "221", "cat"] = "bu lager"
     d.loc[hs == "321", "cat"] = "buso"
+    # Type 5 (ziekenhuisscholen) staat niet in de open data van 1 februari: weglaten om appels met appels te vergelijken.
+    d.loc[d.type_buitengewoon.astype(str) == "5", "cat"] = "type 5"
     d["type"] = d.type_buitengewoon.fillna("").astype(str).replace({"BA": "BA"})
     d["ov"] = d.opleidingsvorm_buso.map({1: "OV1", 2: "OV2", 3: "OV3", 4: "OV4"})
     return pd.DataFrame({"cat": d.cat, "gem": d.fusiegemeente_vpl, "prov": d.provincie_vpl, "type": d.type, "ov": d.ov, "n": d[N]})
