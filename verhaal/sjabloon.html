@@ -342,6 +342,7 @@ const S={
  document.getElementById('sig').innerHTML=C.map(([h,k,f,c,p])=>{const v=G[k],d=v[2]-v[1],fv=x=>f==='n'?fmt(x):x.toFixed(f==='p2'?2:1).replace('.',',')+'%',
   dd=f==='n'?(d>0?'+':'−')+fmt(Math.abs(d)):(d>0?'+':'−')+Math.abs(d).toFixed(f==='p2'?2:1).replace('.',',')+' pp';
   return `<article style="--c:var(${c})"><h3>${h}</h3><div class="d">${dd}<small>2025-26 tegenover 2024-25</small></div><div class="yrs">${v.map((x,i)=>`<span>${L[i]}<b>${fv(x)}</b></span>`).join('')}</div><p>${p}</p></article>`}).join('')})();
+if(!D.dko){delete S.c9;const x=document.getElementById('sc9');if(x){x.previousElementSibling.remove();x.remove()}}
 const cur={};
 function observe(id,fn){const steps=[...document.querySelectorAll('#'+id+' .step')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('is-active',s===e.target));fn(+e.target.dataset.s)}}),{rootMargin:matchMedia('(max-width:860px)').matches?'-68% 0px -12% 0px':'-45% 0px -45% 0px'});steps.forEach(s=>io.observe(s))}
 Object.keys(S).forEach((c,ci)=>{const sv=document.getElementById(c);cur[c]=0;stage(sv,S[c][0]);observe('sc'+(ci+1),i=>{if(cur[c]===i)return;cur[c]=i;stage(sv,S[c][i])})});
