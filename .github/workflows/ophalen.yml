@@ -1,0 +1,31 @@
+# Haalt een bestand op van data-onderwijs.vlaanderen.be en zet het op de tak "ruwe-data".
+# Start: pas bronnen/op_te_halen.txt aan en push naar main (of start de workflow manueel).
+name: bestand ophalen
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [bronnen/op_te_halen.txt]
+permissions:
+  contents: write
+jobs:
+  ophalen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: downloaden
+        run: |
+          mkdir -p /tmp/out
+          grep -v '^#' bronnen/op_te_halen.txt | grep -v '^\s*$' | while read url; do
+            f=$(basename "${url%%\?*}")
+            curl -sSfL --retry 3 -o "/tmp/out/$f" "$url"
+            ls -la "/tmp/out/$f"
+          done
+      - name: op tak ruwe-data zetten
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git fetch origin ruwe-data || true
+          if git rev-parse --verify origin/ruwe-data >/dev/null 2>&1; then git checkout -B ruwe-data origin/ruwe-data; else git checkout --orphan ruwe-data; git rm -rf . >/dev/null; fi
+          cp /tmp/out/* .
+          git add -A && git commit -m "Bestanden opgehaald $(date -u +%F)" || echo "niets nieuw"
+          git push origin ruwe-data
