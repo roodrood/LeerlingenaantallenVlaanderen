@@ -94,8 +94,14 @@ details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.ln{stroke-dashoffset:0}.bar{transform:none}}
 </style>
-</head>
-<body>
+<style id="vl-menu-css">
+.vl-menu{display:flex;gap:4px 18px;flex-wrap:wrap;align-items:center;padding:10px max(16px,4vw);font:500 14px/1.4 var(--f-b,system-ui,sans-serif);border-bottom:1px solid var(--line,rgba(128,128,128,.28));position:relative;z-index:20;background:var(--paper)}
+.vl-menu b{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:var(--ink2,inherit);margin-right:4px}
+.vl-menu a{color:inherit;text-decoration:none;padding:4px 0;opacity:.8;border-bottom:2px solid transparent}.vl-menu a:hover{opacity:1}
+.vl-menu a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:var(--acc,currentColor)}
+@media (max-width:700px){.vl-menu{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap}}
+</style></head>
+<body><nav class="vl-menu" aria-label="Verhalen"><b>Verhalen</b><a href="index.html" aria-current=page>Leerlingen in Vlaanderen 2016-2026</a><a href="voorlopig.html">Eerste signalen 2026-27</a></nav>
 <div class="progress" id="prog" aria-hidden="true"></div>
 <header class="hero">
  <div class="kicker">Leerplichtonderwijs Vlaanderen · telling 1 februari, 2016-17 tot 2025-26</div>
