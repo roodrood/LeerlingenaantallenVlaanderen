@@ -102,7 +102,7 @@ details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
 .vl-menu a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:var(--acc,currentColor)}
 @media (max-width:700px){.vl-menu{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap}}
 </style></head>
-<body><nav class="vl-menu" aria-label="Verhalen"><b>Verhalen</b><a href="index.html">Leerlingen in Vlaanderen 2016-2026</a><a href="voorlopig.html" aria-current=page>Eerste signalen 2026-27</a></nav>
+<body><nav class="vl-menu" aria-label="Verhalen"><b>Verhalen</b><a href="index.html">Leerlingen in Vlaanderen 2016-2026</a><a href="voorlopig.html" aria-current=page>Eerste signalen 2026-27</a></nav><script id="vl-menu-js">/* Als dit verhaal zelf de startpagina is (gepubliceerde artifact), staat het hoofdverhaal ernaast als hoofdverhaal.html */if(!/voorlopig\.html$/.test(location.pathname)){const a=document.querySelector('.vl-menu a[href="index.html"]');if(a)a.href="hoofdverhaal.html"}</script>
 <div class="progress" id="prog" aria-hidden="true"></div>
 <header class="hero">
  <div class="kicker">Voorlopige cijfers · peildatum 1 oktober 2026 · leerplichtonderwijs Vlaanderen en Brussel</div>
