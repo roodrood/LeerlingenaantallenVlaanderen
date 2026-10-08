@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eerste signalen 2026-27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: scrollverhaal; tekstkaarten links, vaste grafiek rechts; op smalle schermen grafiek boven, kaarten eronder */
+:root{
+ --paper:#F1F3F2;--card:#FFFFFF;--ink:#161D1B;--ink2:#56625E;--line:#D4DBD8;--muted:#CDD5D2;
+ --k:#D2553A;--l:#2F69A6;--s:#2A8669;--bu:#7B4CA6;--acc:#E8B100;--water:#C9DCE8;
+ --pos:#1F7A4D;--neg:#B3261E;--hl:#FDF3D0;
+ --f-d:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;--f-b:Barlow,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --paper:#101614;--card:#18201E;--ink:#E5ECE9;--ink2:#97A6A0;--line:#28322F;--muted:#2C3734;
+ --k:#FF7A5C;--l:#6EA4E0;--s:#4CC19B;--bu:#B58BDB;--acc:#F2C230;--water:#173244;--pos:#57C28C;--neg:#FF7B70;--hl:#3A3312;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --paper:#101614;--card:#18201E;--ink:#E5ECE9;--ink2:#97A6A0;--line:#28322F;--muted:#2C3734;
+ --k:#FF7A5C;--l:#6EA4E0;--s:#4CC19B;--bu:#B58BDB;--acc:#F2C230;--water:#173244;--pos:#57C28C;--neg:#FF7B70;--hl:#3A3312;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--f-b);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-d);text-wrap:balance}
+a{color:inherit}
+.kicker{font:600 13px/1 var(--f-b);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.k{color:var(--k);font-weight:600}.l{color:var(--l);font-weight:600}.s{color:var(--s);font-weight:600}.bu{color:var(--bu);font-weight:600}
+.hero{padding:12vh max(24px,6vw) 8vh;max-width:1200px;margin:0 auto}
+.hero .big{font:700 clamp(84px,17vw,220px)/.85 var(--f-d);margin:16px 0 8px;letter-spacing:-.02em}
+.hero .big span{box-shadow:inset 0 -.18em 0 var(--acc)}
+.hero h1{font-size:clamp(28px,4.4vw,54px);line-height:1.05;margin:0 0 20px;max-width:20ch}
+.hero p{font-size:clamp(17px,1.6vw,20px);max-width:58ch;color:var(--ink2);margin:0 0 10px}
+.trio{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px}
+.trio div{font:600 15px var(--f-b);color:var(--ink2)}.trio b{display:block;font:700 34px/1.05 var(--f-d)}
+.cue{margin-top:6vh;font-size:14px;color:var(--ink2)}
+.chapter-head{max-width:1200px;margin:0 auto;padding:12vh max(24px,6vw) 3vh}
+.chapter-head h2{font-size:clamp(32px,4.8vw,60px);line-height:1.03;margin:10px 0 14px;max-width:22ch}
+.chapter-head p{max-width:62ch;color:var(--ink2);margin:0;font-size:19px}
+.scrolly{position:relative;display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:4vw;max-width:1280px;margin:0 auto;padding:0 max(24px,4vw)}
+.steps{position:relative;z-index:2;padding:8vh 0 40vh}
+.step{min-height:85vh;display:flex;align-items:center}
+.step .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:0 10px 30px rgba(15,25,20,.06);opacity:.35;transition:opacity .4s}
+.step.is-active .card{opacity:1}
+.card h3{font-size:24px;line-height:1.15;margin:0 0 10px}
+.card p{margin:0 0 10px}.card p:last-child{margin:0}
+.card .src{font-size:13px;color:var(--ink2)}
+.graphic{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center}
+.graphic figure{margin:0;width:100%;display:flex;flex-direction:column;align-items:center}
+.graphic svg{width:100%;height:auto;max-height:calc(100vh - 80px);display:block;overflow:visible}
+.legend{display:flex;gap:6px 16px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--ink2);margin-top:8px;min-height:20px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--c)}
+svg.stage{transition:opacity .22s}svg.stage:not(.on){opacity:0}
+.grid line{stroke:var(--line)}.grid text{fill:var(--ink2);font:12px var(--f-b)}
+.lbl{font:600 14px var(--f-d);fill:var(--ink)}.lbl.big{font-size:24px}.lbl.mut{fill:var(--ink2);font-weight:500}.lbl.sm{font-size:12.5px}
+.bar{transform-box:fill-box;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.bar.up{transform-origin:bottom;transform:scaleY(0)}.bar.dn{transform-origin:top;transform:scaleY(0)}
+.bar.r{transform-origin:left;transform:scaleX(0)}.bar.lft{transform-origin:right;transform:scaleX(0)}
+.on .bar{transform:none}
+.ln{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.3s ease}
+.on .ln{stroke-dashoffset:0}
+.gem{stroke:var(--card);stroke-width:.35;vector-effect:non-scaling-stroke}
+.arr{stroke:var(--card);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.alab{font:700 15px var(--f-d);text-anchor:middle;paint-order:stroke;stroke:var(--card);stroke-width:3px;fill:var(--ink)}
+.outro{max-width:1200px;margin:0 auto;padding:12vh max(24px,6vw) 10vh}
+.outro h2{font-size:clamp(30px,4vw,48px);line-height:1.05;margin:10px 0 16px;max-width:22ch}
+.outro>p{max-width:64ch;font-size:19px;color:var(--ink2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:26px 0}
+.cards div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.cards b{display:block;font:700 13px var(--f-b);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin-bottom:6px}
+.cards p{margin:0;font-size:16px;line-height:1.45}
+details{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;max-width:84ch}
+summary{cursor:pointer;font-weight:600}
+details li{font-size:14.5px;color:var(--ink2);margin:6px 0}
+.sig{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:26px 0}
+.sig article{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:10px;padding:16px 18px}
+.sig h3{font-size:20px;line-height:1.15;margin:0 0 8px}
+.sig .d{font:700 34px/1 var(--f-d);color:var(--c)}
+.sig .d small{font:500 13px var(--f-b);color:var(--ink2);margin-left:6px}
+.sig .yrs{display:flex;gap:14px;margin:10px 0;font-size:13px;color:var(--ink2)}.sig .yrs b{display:block;font:600 16px var(--f-d);color:var(--ink)}
+.sig p{margin:0;font-size:15px;line-height:1.45}
+.note{font-size:14px;color:var(--ink2);max-width:70ch}
+.warn{max-width:72ch;margin:22px 0 0;padding:14px 18px;border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;background:var(--card);font-size:16px;color:var(--ink)}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--acc);width:0;z-index:10}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+@media (max-width:860px){
+ .scrolly{display:flex;flex-direction:column;padding:0 16px}
+ .graphic{order:-1;top:0;height:60vh;z-index:1;background:var(--paper);padding-top:env(safe-area-inset-top,0px)}
+ .graphic svg{max-height:calc(60vh - 50px)}
+ .steps{padding:0 0 40vh}
+ .step{min-height:90vh;align-items:flex-end;padding-bottom:4vh}
+ .step .card{opacity:.94}
+ .hero,.chapter-head,.outro{padding-inline:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.ln{stroke-dashoffset:0}.bar{transform:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="prog" aria-hidden="true"></div>
+<header class="hero">
+ <div class="kicker">Voorlopige cijfers · peildatum 1 oktober 2026 · leerplichtonderwijs Vlaanderen en Brussel</div>
+ <div class="big"><span>−4.583</span></div>
+ <h1>leerlingen in het lager onderwijs. De krimp versnelt.</h1>
+ <p>De eerste cijfers van schooljaar 2026-27 tonen een lager onderwijs dat sneller krimpt, een secundair dat op zijn top staat en een buitengewoon secundair dat blijft groeien.</p>
+ <div class="trio">
+  <div><b class="l">−1,1%</b>lager onderwijs</div>
+  <div><b class="s">+0,6%</b>1e leerjaar A</div>
+  <div><b class="bu">+4,0%</b>buitengewoon secundair</div>
+  <div><b class="k">−10,5%</b>basisaanbod buitengewoon lager</div>
+ </div>
+ <p class="warn"><b>Lees dit voorzichtig.</b> Dit zijn voorlopige cijfers van 1 oktober 2026, vergeleken met de telling van 1 februari 2026. Dat zijn twee verschillende momenten in het schooljaar: tussen oktober en februari komen er leerlingen bij en vallen er af. De echte vergelijking volgt met de telling van 1 februari 2027.</p>
+ <div class="cue">Scroll om te lezen</div>
+</header>
+<main>
+<section class="chapter-head"><div class="kicker">Hoofdstuk 1</div><h2>Het lager krimpt sneller</h2><p>Het lager onderwijs piekte in 2019-20. Sindsdien daalt het, en de daling wordt groter.</p></section>
+<div class="scrolly" id="sc1"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>4.583 leerlingen minder</h3><p>Op 1 oktober 2026 zaten 426.630 kinderen in het <span class="l">gewoon lager onderwijs</span>, 4.583 minder dan op 1 februari 2026 (−1,1%). Vorig jaar was de daling 2.887.</p><p>In september kwamen er nog 541 leerlingen bij. Als die lichte groei tot februari doorloopt, valt de echte daling van jaar tot jaar eerder groter uit dan kleiner.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>Kleinere jaargangen komen binnen, grotere vertrekken</h3><p>Het 1e leerjaar telt 1.208 leerlingen minder dan het 1e leerjaar van vorig schooljaar. Het 6e leerjaar telt er 1.767 minder.</p><p>Alleen het 2e en 5e leerjaar zijn iets groter.</p><p class="src">Per leerjaar: 1 oktober 2026 tegenover 1 februari 2026. Elk leerjaar is een andere groep kinderen.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Overal minder, behalve in Brussel</h3><p>Limburg verliest het meest (−2,2%), gevolgd door de provincie Antwerpen (−1,3%) en Oost-Vlaanderen (−1,1%). In het Nederlandstalig onderwijs in Brussel komen er 102 leerlingen bij.</p><p>De centrumsteden (−1,3%) dalen iets sneller dan de rest van Vlaanderen (−1,1%).</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Twee op drie gemeenten</h3><p>In 177 van de 258 gemeenten met minstens 500 leerlingen in het lager zijn er nu minder dan in februari.</p><p class="src">Gemeenten met minder dan 300 leerlingen zijn grijs. Bij kleine aantallen kan één klas het verschil maken.</p></div></div>
+</div><div class="graphic"><figure><svg id="c1" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g1"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 2</div><h2>Het secundair staat op zijn top</h2><p>Volgens de bevolkingsvooruitzichten bereikt het aantal 12- tot 17-jarigen in 2026-2027 zijn hoogste punt. De eerste cijfers passen daarbij.</p></section>
+<div class="scrolly" id="sc2"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>De instroom houdt stand</h3><p>Het <span class="s">1e leerjaar A</span> telt 64.497 leerlingen, 416 meer dan in februari. Vorig jaar daalde het nog met 1.037. De dip van vorig jaar zet zich dus niet door.</p><p>Het 1e leerjaar B telt 10.830 leerlingen, 160 minder.</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>De groei schuift naar de 3e graad</h3><p>De grote jaargangen zitten nu in de 3e graad: +957 in het 1e leerjaar en +1.385 in het 2e leerjaar. In de 1e graad en het 1e leerjaar van de 2e graad zijn er minder leerlingen.</p><p>Zonder 7e jaar, OKAN en HBO5 groeit het secundair nog met 1.156 leerlingen (+0,3%).</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Limburg en Brussel bij de stijgers</h3><p>Het 1e leerjaar A groeit het sterkst in Brussel (+2,2%) en Limburg (+2,1%). Alleen Vlaams-Brabant heeft een kleine daling (−0,4%).</p></div></div>
+</div><div class="graphic"><figure><svg id="c2" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g2"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 3</div><h2>Buitengewoon: het secundair groeit, het lager keert</h2><p>Het BuSO groeit al tien jaar. In het buitengewoon lager daalt vooral het basisaanbod.</p></section>
+<div class="scrolly" id="sc3"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Het BuSO groeit met 4%</h3><p>Het <span class="bu">buitengewoon secundair</span> telt 27.492 leerlingen, 1.050 meer dan in februari. Elke provincie heeft er meer, het meest Antwerpen (+326) en West-Vlaanderen (+312).</p></div></div>
+ <div class="step" data-s="1"><div class="card"><h3>Vooral opleidingsvorm 4</h3><p>OV4, dat zoals het gewoon secundair voorbereidt op verder studeren of werk, groeit met 666 leerlingen (+10,7%). OV1 en OV2 groeien ook. OV3, het beroepsonderwijs, blijft gelijk rond 10.300.</p><p>Type 9 (autisme) groeit met 341 leerlingen tot 9.857.</p></div></div>
+ <div class="step" data-s="2"><div class="card"><h3>Het basisaanbod in het lager daalt het derde jaar op rij</h3><p>Het basisaanbod in het <span class="k">buitengewoon lager</span> piekte in 2021-22 met 12.596 leerlingen. Nu zijn het er 9.828, 1.157 minder dan in februari (−10,5%).</p><p class="src">Een deel van de verwijzingen naar het buitengewoon onderwijs gebeurt tijdens het schooljaar. In februari kan het aantal dus weer hoger liggen.</p></div></div>
+ <div class="step" data-s="3"><div class="card"><h3>Type 2 groeit</h3><p>Het buitengewoon lager telt 26.771 leerlingen, 441 minder. Type 2 (verstandelijke beperking) groeit wel, met 393 leerlingen (+7,4%), en ook type 9 groeit licht.</p><p>Of de daling van het basisaanbod samenhangt met het leersteundecreet (september 2023) kan je uit deze cijfers niet afleiden.</p></div></div>
+</div><div class="graphic"><figure><svg id="c3" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g3"></div></figure></div></div>
+
+<section class="chapter-head"><div class="kicker">Hoofdstuk 4</div><h2>Stad Antwerpen</h2><p>Scholen in de fusiegemeente Antwerpen (inclusief Borsbeek).</p></section>
+<div class="scrolly" id="sc4"><div class="steps">
+ <div class="step" data-s="0"><div class="card"><h3>Een kleiner 1e leerjaar</h3><p>Het 1e leerjaar van het lager telt 6.591 leerlingen, 425 minder dan het 1e leerjaar in februari (−6,1%). Het hele lager daalt met 477 leerlingen (−1,2%).</p><p>In het secundair daalt het 1e leerjaar A met 142 (−2,7%), terwijl het secundair als geheel nog groeit (+456). Het BuSO groeit met 111 leerlingen (+5,2%).</p></div></div>
+</div><div class="graphic"><figure><svg id="c4" class="stage" viewBox="0 0 800 480" role="img"></svg><div class="legend" id="g4"></div></figure></div></div>
+</main>
+
+<section class="outro">
+ <div class="kicker">Wat je (nog) niet kan vergelijken</div>
+ <h2>Oktober is geen februari</h2>
+ <div class="cards">
+  <div><b>Kleuters</b><p>Kleuters starten op vaste instapdata verspreid over het jaar. Op 1 oktober zijn er 223.670, in februari altijd veel meer. De −12% zegt dus niets over de trend.</p></div>
+  <div><b>OKAN</b><p>Anderstalige nieuwkomers komen het hele jaar door binnen. 6.547 in oktober tegenover 7.833 in februari is vooral seizoen.</p></div>
+  <div><b>7e jaar en HBO5</b><p>Het 7e leerjaar (+461) en HBO5 verpleegkunde (+611) liggen hoger dan in februari. Bij opleidingen waar in de loop van het jaar leerlingen afhaken, is oktober altijd hoger.</p></div>
+  <div><b>Volgende stap</b><p>De telling van 1 februari 2027 geeft de echte vergelijking. Dan kan dit verhaal opnieuw gedraaid worden.</p></div>
+ </div>
+ <details><summary>Bronnen en methode</summary><ul>
+  <li>Voorlopige cijfers: Onderwijs Vlaanderen, "leerlingenaantallen Discimus voorlopig" (versie 1, gegevens van 7 oktober 2026), kolom <i>aantal_lln_op_teldag_01_10</i>. De latere peildata in dat bestand zijn nog niet ingevuld met echte waarden.</li>
+  <li>Vergelijking: open data "inschrijvingen leerplicht per instelling", telling 1 februari, schooljaren 2016-17 tot 2025-26.</li>
+  <li>Secundair: voltijds gewoon secundair, inclusief duaal leren (in 2026-27 apart als DBSO en Syntra; in 2025-26 in het voltijds secundair; tot 2024-25 deels als DBSO). 1e leerjaar A en B volgens de administratieve groep.</li>
+  <li>Gemeenten en provincies volgens de vestigingsplaats, indeling 2025. Centrumsteden: Aalst, Antwerpen, Brugge, Genk, Gent, Hasselt, Kortrijk, Leuven, Mechelen, Oostende, Roeselare, Sint-Niklaas, Turnhout.</li>
+  <li>Gemaakt met <code>scripts/05_voorlopig_verhaal.py</code> in deze repository.</li>
+ </ul></details>
+</section>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent),Y=D.Y,NS='http://www.w3.org/2000/svg';
+const fmt=n=>Math.round(n).toLocaleString('nl-BE'),pct=(v,d=1)=>(v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(d).replace('.',',')+'%';
+const cv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const YL=y=>String(y).slice(2)+'-'+String(y+1).slice(2);
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)if(a[k]!=null)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,c,anc){const t=el('text',{x,y,class:c||'lbl','text-anchor':anc||'start'},p);t.textContent=s;return t}
+const lin=(d0,d1,r0,r1)=>v=>r0+(v-d0)/(d1-d0)*(r1-r0);
+function legend(id,items){document.getElementById(id).innerHTML=items.map(([l,c])=>`<span style="--c:var(${c})">${l}</span>`).join('')}
+function stage(svg,fn){clearTimeout(svg._t);const go=()=>{svg.innerHTML='';svg.setAttribute('viewBox','0 0 800 480');fn(svg);requestAnimationFrame(()=>requestAnimationFrame(()=>{svg.querySelectorAll('.ln').forEach(p=>p.style.setProperty('--len',p.getTotalLength()));svg.classList.add('on')}))};if(svg.childNodes.length){svg.classList.remove('on');svg._t=setTimeout(go,230)}else go()}
+const W=800,H=480;
+/* lijngrafiek */
+function lines(svg,{series,x0,x1,lo,hi,step,yf,title,cut,xt,cl}){const m={l:62,r:150,t:52,b:42},X=lin(x0,x1,m.l,W-m.r),Yy=lin(lo,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi+1e-9;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,yf(v),'','end')}
+ (xt||[]).forEach(v=>txt(svg,X(v),H-m.b+22,typeof v==='number'&&v>2000&&x1-x0<15?YL(v):String(v),'lbl mut sm','middle'));
+ if(cut){el('rect',{x:X(cut),y:m.t,width:W-m.r-X(cut),height:H-m.b-m.t,fill:cv('--muted'),opacity:.35},svg);txt(svg,X(cut)+8,m.t+16,cl||'vooruitzicht','lbl mut sm')}
+ const ends=[];series.forEach(s=>{const parts=cut?[s.pts.filter(p=>p[0]<=cut),s.pts.filter(p=>p[0]>=cut)]:[s.pts];
+  parts.forEach((pp,k)=>{if(pp.length<2)return;el('path',{d:'M'+pp.map(q=>X(q[0]).toFixed(1)+','+Yy(q[1]).toFixed(1)).join('L'),fill:'none',stroke:cv(s.c),'stroke-width':s.w||3,'stroke-dasharray':k?'6 5':null,'stroke-linecap':'round',class:k?null:'ln'},svg)});
+  const lp=s.pts[s.pts.length-1];ends.push({y:Yy(lp[1]),x:X(lp[0]),s})});
+ ends.sort((a,b)=>a.y-b.y);for(let i=1;i<ends.length;i++)if(ends[i].y-ends[i-1].y<17)ends[i].y=ends[i-1].y+17;
+ ends.forEach(e=>{const t=txt(svg,e.x+8,e.y+5,e.s.name,'lbl');t.style.fill=cv(e.s.c)})}
+/* staafdiagram per jaar */
+function bars(svg,{data,lo,hi,step,f,title,hl}){const m={l:70,r:20,t:52,b:42},n=data.length,bw=(W-m.l-m.r)/n,Yy=lin(lo,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,f(v),'','end')}
+ data.forEach(([lab,v,c],i)=>{el('rect',{x:m.l+i*bw+bw*.16,y:Yy(v),width:bw*.68,height:Yy(lo)-Yy(v),fill:cv(c),class:'bar up',style:`transition-delay:${i*.03}s`},svg);
+  if(!hl||hl.includes(i))txt(svg,m.l+(i+.5)*bw,Yy(v)-7,f(v),'lbl sm','middle');if(n<=12||i%5===0)txt(svg,m.l+(i+.5)*bw,H-m.b+22,lab,'lbl mut sm','middle')})}
+/* horizontale divergerende staven */
+function hbars(svg,{rows,lo,hi,title,f}){const m={l:270,r:70,t:60,b:20},X=lin(lo,hi,m.l,W-m.r),bh=Math.min(40,(H-m.t-m.b)/rows.length-14);
+ txt(svg,m.l,28,title,'lbl mut');el('line',{x1:X(0),x2:X(0),y1:m.t-10,y2:H-m.b,stroke:cv('--ink2')},svg);
+ rows.forEach(([lab,v,c,sub],i)=>{const y=m.t+i*(bh+14),x0=Math.min(X(0),X(v)),w=Math.abs(X(v)-X(0));
+  el('rect',{x:x0,y,width:w,height:bh,rx:3,fill:cv(c),class:'bar '+(v<0?'lft':'r'),style:`transition-delay:${i*.07}s`},svg);
+  txt(svg,m.l-12,y+bh/2+(sub?-1:5),lab,'lbl','end');if(sub)txt(svg,m.l-12,y+bh/2+14,sub,'lbl mut sm','end');
+  txt(svg,v<0?x0-8:x0+w+8,y+bh/2+5,f(v),'lbl',v<0?'end':'start')})}
+/* gestapelde 100%-staven */
+function stack(svg,rows,title){const m={l:110,r:20,t:60,b:30},X=lin(0,100,m.l,W-m.r),bh=70;
+ txt(svg,m.l,28,title,'lbl mut');rows.forEach(([lab,parts],i)=>{const y=m.t+40+i*(bh+70);let acc=0;txt(svg,m.l-12,y+bh/2+5,lab,'lbl big','end');
+  parts.forEach(([pl,v,c],k)=>{const x=X(acc),w=X(acc+v)-X(acc)-2;el('rect',{x,y,width:Math.max(0,w),height:bh,rx:3,fill:cv(c),class:'bar r',style:`transition-delay:${(i*4+k)*.08}s`},svg);
+   if(v>7){txt(svg,x+8,y+24,pl,'lbl sm').style.fill='#fff';const t=txt(svg,x+8,y+50,v.toFixed(0)+'%','lbl big');t.style.fill='#fff'}acc+=v})})}
+/* halters */
+function dumb(svg,{rows,lo,hi,step,title,ca,cb}){const m={l:250,r:60,t:70,b:20},X=lin(lo,hi,m.l,W-m.r),rh=(H-m.t-m.b)/rows.length;
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=lo;v<=hi;v+=step){el('line',{x1:X(v),x2:X(v),y1:m.t-12,y2:H-m.b},G);txt(G,X(v),m.t-20,v+'%','','middle')}
+ rows.forEach(([lab,a,b],i)=>{const y=m.t+i*rh+rh/2;txt(svg,m.l-14,y+5,lab,'lbl','end');el('line',{x1:X(a),x2:X(b),y1:y,y2:y,stroke:cv('--muted'),'stroke-width':6,'stroke-linecap':'round'},svg);
+  el('circle',{cx:X(a),cy:y,r:7.5,fill:cv(ca)},svg);el('circle',{cx:X(b),cy:y,r:9,fill:cv(cb)},svg);
+  txt(svg,X(a)+(b>=a?-14:14),y+5,a.toFixed(1).replace('.',','),'lbl sm',b>=a?'end':'start');txt(svg,X(b)+(b>=a?14:-14),y+5,b.toFixed(1).replace('.',','),'lbl',b>=a?'start':'end')})}
+/* gegroepeerde staven */
+function gbars(svg,{cats,a,b,hi,step,title,ca,cb}){const m={l:70,r:20,t:52,b:42},n=cats.length,bw=(W-m.l-m.r)/n,Yy=lin(0,hi,H-m.b,m.t);
+ txt(svg,m.l,28,title,'lbl mut');const G=el('g',{class:'grid'},svg);for(let v=0;v<=hi;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Yy(v),y2:Yy(v)},G);txt(G,m.l-8,Yy(v)+4,fmt(v),'','end')}
+ cats.forEach((c,i)=>{[[a[i],ca,.14],[b[i],cb,.5]].forEach(([v,col,o],k)=>{const x=m.l+i*bw+bw*o;el('rect',{x,y:Yy(v),width:bw*.34,height:Yy(0)-Yy(v),fill:cv(col),class:'bar up',style:`transition-delay:${(i*2+k)*.04}s`},svg);txt(svg,x+bw*.17,Yy(v)-6,fmt(v),'lbl sm','middle')});
+  txt(svg,m.l+(i+.5)*bw,H-m.b+22,c,'lbl mut sm','middle')})}
+/* kaart */
+const KC=Math.cos(51*Math.PI/180);
+function proj(feats){let b=[1e9,-1e9,1e9,-1e9];feats.forEach(f=>f.r.forEach(r=>r.forEach(([x,y])=>{b=[Math.min(b[0],x*KC),Math.max(b[1],x*KC),Math.min(b[2],-y),Math.max(b[3],-y)]})));const s=Math.min(780/(b[1]-b[0]),400/(b[3]-b[2]));return{P:([x,y])=>[10+(x*KC-b[0])*s,60+(-y-b[2])*s],h:Math.ceil(70+(b[3]-b[2])*s)}}
+const PG=proj(D.G_gem);
+const pathD=(f,P)=>f.r.map(r=>'M'+r.map(q=>P(q).map(v=>v.toFixed(1)).join(',')).join('L')+'Z').join('');
+const mix=(c,p)=>`color-mix(in srgb, ${c} ${Math.round(p)}%, var(--card))`;
+const div=(v,mx)=>v==null?'var(--muted)':mix(v<0?'var(--neg)':'var(--pos)',10+85*Math.min(1,Math.sqrt(Math.abs(v)/mx)));
+
+const Y2=[...Y,2026],OK=D.okt,F=D.feb,dl=v=>(v>0?'+':v<0?'−':'')+fmt(Math.abs(v));
+const ser=(k,c,nm,w)=>({name:nm,c,w,pts:[...Y.map((y,i)=>[y,F[k][i]]),[2026,OK[k]]]});
+const XT=[2016,2018,2020,2022,2024,2026];
+const pc=(a,b)=>(b/a-1)*100;
+function rmap(svg,G,title){svg.setAttribute('viewBox',`0 0 800 ${PG.h}`);txt(svg,10,28,title,'lbl mut');
+ D.G_gem.forEach(f=>{const g=G[f.n],v=g&&g[0]>=300?pc(g[0],g[1]):null,p=el('path',{d:pathD(f,PG.P),class:'gem',style:`fill:${div(v,4)}`},svg);el('title',{},p).textContent=f.n+(v==null?': minder dan 300 leerlingen':`: ${fmt(g[0])} → ${fmt(g[1])} (${pct(v)})`)})}
+const PR=['Antwerpen','Limburg','Oost-Vlaanderen','Vlaams-Brabant','West-Vlaanderen','Brussels Hoofdstedelijk Gewest'],PRN={'Brussels Hoofdstedelijk Gewest':'Brussel'};
+const reg=(k,keys)=>keys.map(p=>[PRN[p]||p,pc(D.regio.feb[k][p],D.regio.okt[k][p])]);
+const S={
+ c1:[s=>{lines(s,{series:[ser('lager','--l','Lager '+fmt(OK.lager),4)],x0:2016,x1:2026,lo:420000,hi:450000,step:10000,yf:fmt,title:'Leerlingen gewoon lager onderwijs (1 februari; 2026-27: 1 oktober)',cut:2025,cl:'voorlopig',xt:XT});legend('g1',[['Telling 1 februari','--l'],['Voorlopig, 1 oktober 2026','--muted']])},
+  s=>{hbars(s,{rows:[1,2,3,4,5,6].map(i=>[i+'e leerjaar',D.cat['lager '+i][1]-D.cat['lager '+i][0],'--l']),lo:-2000,hi:1000,title:'Verschil per leerjaar, 1 oktober 2026 tegenover 1 februari 2026',f:dl});legend('g1',[])},
+  s=>{hbars(s,{rows:[...reg('lager',PR).map(([p,v])=>[p,v,'--l']),...reg('lager',['Centrumsteden','Rest van Vlaanderen']).map(([p,v])=>[p,v,'--ink2'])],lo:-3,hi:1,title:'Lager onderwijs: verschil per provincie',f:v=>pct(v)});legend('g1',[['Provincie','--l'],['Stadstype','--ink2']])},
+  s=>{rmap(s,D.gem_lager,'Lager onderwijs per gemeente: 1 oktober 2026 tegenover 1 februari 2026');legend('g1',[['Minder leerlingen','--neg'],['Meer leerlingen','--pos'],['Minder dan 300 leerlingen','--muted']])}],
+ c2:[s=>{lines(s,{series:[ser('1A','--s','1e leerjaar A '+fmt(OK['1A']),4)],x0:2016,x1:2026,lo:58000,hi:68000,step:2000,yf:fmt,title:'Leerlingen in het 1e leerjaar A',cut:2025,cl:'voorlopig',xt:XT});legend('g2',[['Telling 1 februari','--s'],['Voorlopig, 1 oktober 2026','--muted']])},
+  s=>{const L=[['1A','1e leerjaar A'],['1B','1e leerjaar B'],['1e graad 2e lj','1e graad, 2e leerjaar'],['2e graad 1e lj','2e graad, 1e leerjaar'],['2e graad 2e lj','2e graad, 2e leerjaar'],['3e graad 1e lj','3e graad, 1e leerjaar'],['3e graad 2e lj','3e graad, 2e leerjaar']];
+   hbars(s,{rows:L.map(([k,l])=>[l,D.cat[k][1]-D.cat[k][0],'--s']),lo:-1500,hi:1800,title:'Secundair: verschil per leerjaar',f:dl});legend('g2',[])},
+  s=>{hbars(s,{rows:reg('1A',PR).map(([p,v])=>[p,v,'--s']),lo:-1,hi:3,title:'1e leerjaar A: verschil per provincie',f:v=>pct(v)});legend('g2',[])}],
+ c3:[s=>{lines(s,{series:[ser('buso','--bu','BuSO '+fmt(OK.buso),4)],x0:2016,x1:2026,lo:18000,hi:28000,step:2000,yf:fmt,title:'Leerlingen buitengewoon secundair onderwijs',cut:2025,cl:'voorlopig',xt:XT});legend('g3',[['Telling 1 februari','--bu'],['Voorlopig, 1 oktober 2026','--muted']])},
+  s=>{const O=D.ov;hbars(s,{rows:[['OV1',O.OV1,'sociale aanpassing'],['OV2',O.OV2,'arbeidsgeschiktmaking'],['OV3',O.OV3,'beroepsonderwijs'],['OV4',O.OV4,'zoals gewoon secundair']].map(([o,v,sub])=>[o,v[1]-v[0],o==='OV4'?'--bu':'--muted',`${fmt(v[1])} leerlingen, ${sub}`]),lo:0,hi:800,title:'BuSO: verschil per opleidingsvorm',f:dl});legend('g3',[])},
+  s=>{bars(s,{data:[...Y.map((y,i)=>[YL(y),D.ba_lager_reeks[i],'--muted']),['26-27',D['type|bu lager'].BA[1],'--k']],lo:0,hi:14000,step:2000,f:fmt,title:'Basisaanbod in het buitengewoon lager (2026-27: voorlopig, 1 oktober)'});legend('g3',[['Telling 1 februari','--muted'],['Voorlopig, 1 oktober 2026','--k']])},
+  s=>{const T=D['type|bu lager'],nm={'9':'Type 9','BA':'Basisaanbod','2':'Type 2','3':'Type 3','4':'Type 4','7':'Type 7'};hbars(s,{rows:['BA','9','2','3','4','7'].map(t=>[nm[t],T[t][1]-T[t][0],t==='BA'?'--k':'--bu',fmt(T[t][1])+' leerlingen']),lo:-1300,hi:500,title:'Buitengewoon lager: verschil per type',f:dl});legend('g3',[])}],
+ c4:[s=>{const A=D.antwerpen;hbars(s,{rows:[['Lager',A.lager,'--l'],['Lager, 1e leerjaar',A['lager 1'],'--l'],['Secundair',A.secundair,'--s'],['1e leerjaar A',A['1A'],'--s'],['1e leerjaar B',A['1B'],'--s'],['BuSO',A.buso,'--bu'],['Buitengewoon lager',A['bu lager'],'--bu']].map(([l,v,c])=>[l,pc(v[0],v[1]),c,fmt(v[0])+' → '+fmt(v[1])]),lo:-7,hi:6,title:'Stad Antwerpen: 1 oktober 2026 tegenover 1 februari 2026',f:v=>pct(v)});legend('g4',[['Lager','--l'],['Secundair','--s'],['Buitengewoon','--bu']])}]
+};
+const cur={};
+function observe(id,fn){const steps=[...document.querySelectorAll('#'+id+' .step')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('is-active',s===e.target));fn(+e.target.dataset.s)}}),{rootMargin:matchMedia('(max-width:860px)').matches?'-68% 0px -12% 0px':'-45% 0px -45% 0px'});steps.forEach(s=>io.observe(s))}
+Object.keys(S).forEach((c,ci)=>{const sv=document.getElementById(c);cur[c]=0;stage(sv,S[c][0]);observe('sc'+(ci+1),i=>{if(cur[c]===i)return;cur[c]=i;stage(sv,S[c][i])})});
+function redraw(){Object.keys(S).forEach(c=>{const sv=document.getElementById(c);sv.innerHTML='';stage(sv,S[c][cur[c]])})}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+</script>
+</body>
+</html>

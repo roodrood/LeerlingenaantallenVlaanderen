@@ -5,6 +5,12 @@ op basis van **open data** (Onderwijs Vlaanderen, Federaal Planbureau/Statbel, I
 
 **Het verhaal:** `docs/index.html` (dubbelklik om te openen; werkt zonder internet, op de lettertypes na).
 
+## Tweede verhaal: Eerste signalen 2026-27
+
+`docs/voorlopig.html`: voorlopige cijfers van 1 oktober 2026 (Discimus) naast de telling van 1 februari 2026.
+Bouwen: `python scripts/04_voorlopig.py` (haalt het bestand op) en `python scripts/05_voorlopig_verhaal.py`.
+Let op: 1 oktober en 1 februari zijn andere momenten in het schooljaar (kleuters en OKAN niet vergelijkbaar).
+
 ## Hoofdstukken
 
 1. De golf rolt door de school: kleuter krimpt, lager piekte in 2019, secundair piekt nu
