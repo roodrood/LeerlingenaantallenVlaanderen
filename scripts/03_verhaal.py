@@ -10,6 +10,12 @@ def main():
     (ROOT / "docs").mkdir(exist_ok=True)
     (ROOT / "docs" / "index.html").write_text(s.replace("__DATA__", d), encoding="utf-8")
     print("docs/index.html", len(s) + len(d) - 8, "bytes")
+    huisstijl()
+
+
+def huisstijl():
+    import runpy
+    runpy.run_path(str(Path(__file__).with_name("huisstijl.py")), run_name="__main__")  # OBI Dashboards
 
 
 if __name__ == "__main__":

@@ -132,7 +132,13 @@ def main():
     s = (ROOT / "verhaal" / "voorlopig_sjabloon.html").read_text(encoding="utf-8")
     (ROOT / "docs" / "voorlopig.html").write_text(s.replace("__DATA__", json.dumps(out, ensure_ascii=False, separators=(",", ":"))), encoding="utf-8")
     print("docs/voorlopig.html")
+    huisstijl()
     print(json.dumps({k: out[k] for k in ("okt", "cat", "regio", "type|buso", "type|bu lager", "ov", "ba_lager_reeks", "antwerpen")}, ensure_ascii=False))
+
+
+def huisstijl():
+    import runpy
+    runpy.run_path(str(Path(__file__).with_name("huisstijl.py")), run_name="__main__")  # OBI Dashboards
 
 
 if __name__ == "__main__":
