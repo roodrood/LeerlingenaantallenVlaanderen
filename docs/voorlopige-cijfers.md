@@ -85,16 +85,26 @@ Belangrijkste kolommen: `nummer_instelling`, `naam_instelling`, `intern_volgnr_v
 - `naam_net`: `Gemeenschapsonderwijs`, `Officieel gesubsidieerd onderwijs`, `Vrij gesubsidieerd onderwijs`, `Andere` (Syntra).
 - `opleidingsvorm_buso`: 1-4 (OV1-OV4). `type_buitengewoon`: `BA`, `2`, `3`, `4`, `5`, `6`, `7`, `9`.
 
-## 5. Valkuilen bij vergelijken met de open data van 1 februari
+## 5. Vergelijken: altijd met dezelfde teldag (1 oktober)
 
-De open data "inschrijvingen leerplicht per instelling" (telling 1 februari) is de gewone reeks. Bij een vergelijking:
+Vergelijk voorlopige cijfers van 1 oktober **met de geverifieerde open data van 1 oktober**, niet met 1 februari.
+Die bestaat voor elk schooljaar sinds 2016-17, in dezelfde vorm als de februaribestanden:
 
-1. **Ander moment in het schooljaar.** 1 oktober is geen 1 februari. Kleuters (instapdata) en OKAN (nieuwkomers) groeien
-   tijdens het jaar: die zijn niet vergelijkbaar. Ook 7e jaar en HBO5 liggen in oktober hoger (afhakers later in het jaar),
-   en verwijzingen naar het buitengewoon onderwijs gebeuren deels tijdens het jaar. Lager en secundair zijn bruikbaar, met voorzichtigheid.
-2. **Marktaandelen zijn betrouwbaarder dan absolute verschillen**, want het seizoenseffect geldt voor alle scholen.
+```
+https://opendata.dataplatform-onderwijs.vlaanderen.be/dataloep/inschrijvingen-leerplicht-instellingen-dataset-2025-2026-1okt.csv
+```
+
+(vervang `2025-2026` door het schooljaar; `-1feb.csv` is de telling van 1 februari). Dit portaal is wel bereikbaar vanuit de cloud.
+Definitieve analyses (marktanalyses, trends) blijven op 1 februari.
+
+Valkuilen:
+
+1. **1 oktober is geen 1 februari.** Tussen oktober en februari komen er kleuters (instapdata) en nieuwkomers in OKAN bij,
+   en vallen er leerlingen af in het 7e jaar en HBO5. Voorbeeld stad Antwerpen 2025-26: +2.785 kleuters (+13%) en +241 OKAN
+   van 1 oktober naar 1 februari. Tegenover februari lijkt de kleuterklas in Vlaanderen 12% te dalen; tegenover 1 oktober 2025 is het −0,7%.
+2. **Ook binnen 1 oktober: voorlopig tegenover geverifieerd.** De voorlopige cijfers kunnen nog wijzigen; vermeld dat.
 3. **Ziekenhuisscholen (type 5) weglaten.** Ze staan in het voorlopige bestand (± 600 BuSO, ± 355 buitengewoon lager,
-   ± 180 buitengewoon kleuter in 2026-27), maar niet in de open data van 1 februari. Wie ze meetelt, ziet een groei die er niet is.
+   ± 180 buitengewoon kleuter in 2026-27), maar niet in de open data (1 februari en 1 oktober). Wie ze meetelt, ziet een groei die er niet is.
 4. **Duaal leren**: in 2025-26 zat het in het voltijds secundair (administratieve groep eindigt op "DBSO" of "SYN"),
    in 2026-27 apart als hoofdstructuur 312 en 315. Tel 311 + 312 + 315 samen voor een vergelijkbaar secundair.
 5. **Gemeenten**: beide bronnen gebruiken de fusiegemeenten van 2025; de namen komen overeen.
@@ -103,14 +113,14 @@ De open data "inschrijvingen leerplicht per instelling" (telling 1 februari) is 
 
 ## 6. Controlegetallen (versie 1, peildatum 1 oktober 2026, zonder type 5)
 
-| | 1 okt 2026 | 1 feb 2026 (open data) |
-|---|---|---|
-| gewoon lager | 426.630 | 431.213 |
-| lager, 1e leerjaar | 72.927 | 74.135 |
-| secundair, 1e leerjaar A | 64.497 | 64.081 |
-| secundair, 1e leerjaar B | 10.830 | 10.990 |
-| secundair totaal (311+312+315) | 481.630 | 480.487 |
-| BuSO | 26.884 | 26.442 |
-| buitengewoon lager | 26.416 | 27.212 |
+| | 1 okt 2026 (voorlopig) | 1 okt 2025 (open data) | 1 feb 2026 (open data) |
+|---|---|---|---|
+| gewoon lager | 426.630 | 430.489 | 431.213 |
+| lager, 1e leerjaar | 72.927 | 74.020 | 74.135 |
+| secundair, 1e leerjaar A | 64.497 | 64.820 | 64.081 |
+| secundair, 1e leerjaar B | 10.830 | 10.375 | 10.990 |
+| secundair totaal (311+312+315) | 481.630 | 481.922 | 480.487 |
+| BuSO | 26.884 | 26.207 | 26.442 |
+| buitengewoon lager | 26.416 | 26.657 | 27.212 |
 
 Komen je eigen tellingen hiermee overeen, dan lees je het bestand op dezelfde manier.

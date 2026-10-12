@@ -47,6 +47,7 @@ def main(y0=2016, y1=2025):
     DATA.mkdir(exist_ok=True)
     print("== 1/4 inschrijvingen ophalen en samenvoegen")
     stap("01_laden").main(y0, y1)
+    stap("01_laden").main(y0, y1, "okt")  # telling 1 oktober, voor het verhaal over de voorlopige cijfers
     print("== 2/4 grenzen en bevolking")
     grenzen()
     print("== DKO ophalen (optioneel)")

@@ -7,9 +7,9 @@ op basis van **open data** (Onderwijs Vlaanderen, Federaal Planbureau/Statbel, I
 
 ## Tweede verhaal: Eerste signalen 2026-27
 
-`docs/voorlopig.html`: voorlopige cijfers van 1 oktober 2026 (Discimus) naast de telling van 1 februari 2026.
-Bouwen: `python scripts/04_voorlopig.py` (haalt het bestand op) en `python scripts/05_voorlopig_verhaal.py`.
-Let op: 1 oktober en 1 februari zijn andere momenten in het schooljaar (kleuters en OKAN niet vergelijkbaar).
+`docs/voorlopig.html`: voorlopige cijfers van 1 oktober 2026 (Discimus) naast de geverifieerde tellingen van 1 oktober 2016-2025.
+Bouwen: `python scripts/01_laden.py 2016 2025 okt` (telling 1 oktober), `python scripts/04_voorlopig.py` (haalt het bestand op) en `python scripts/05_voorlopig_verhaal.py`. `scripts/alles.py` laadt de oktobertelling mee.
+Regel: voorlopige cijfers enkel vergelijken met dezelfde teldag (1 oktober); definitieve analyses op 1 februari.
 Handleiding om de voorlopige cijfers in een ander project te gebruiken: `docs/voorlopige-cijfers.md`.
 
 ## Hoofdstukken

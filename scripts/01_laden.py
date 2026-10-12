@@ -1,7 +1,8 @@
-"""Stap 1: inschrijvingen leerplicht (telling 1 februari) downloaden en samenvoegen tot één compacte tabel.
+"""Stap 1: inschrijvingen leerplicht downloaden en samenvoegen tot één compacte tabel.
 
-Uitvoer: data/vl.pkl, geaggregeerd zonder adressen. De map data/ staat in .gitignore.
-Gebruik: python scripts/01_laden.py [eerste_jaar] [laatste_jaar]
+Uitvoer: data/vl.pkl (telling 1 februari) of data/vl_okt.pkl (telling 1 oktober), geaggregeerd zonder adressen.
+De map data/ staat in .gitignore. De oktobertelling dient om voorlopige cijfers (1 oktober) met dezelfde teldag te vergelijken.
+Gebruik: python scripts/01_laden.py [eerste_jaar] [laatste_jaar] [feb|okt]
 """
 import sys
 from pathlib import Path
@@ -12,7 +13,7 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 DATA.mkdir(exist_ok=True)
-URL = "https://opendata.dataplatform-onderwijs.vlaanderen.be/dataloep/inschrijvingen-leerplicht-instellingen-dataset-{y}-{n}-1feb.csv"
+URL = "https://opendata.dataplatform-onderwijs.vlaanderen.be/dataloep/inschrijvingen-leerplicht-instellingen-dataset-{y}-{n}-1{t}.csv"
 HS = {"111": "kleuter", "211": "lager", "311": "secundair", "312": "dbso",
       "121": "bu kleuter", "221": "bu lager", "321": "buso"}
 KEEP = ["hoofdstructuur_inschrijving_code", "graad_so", "leerjaar", "onderwijsvorm", "finaliteit", "domein",
@@ -21,12 +22,13 @@ KEEP = ["hoofdstructuur_inschrijving_code", "graad_so", "leerjaar", "onderwijsvo
         "vestiging_fusiegemeente_naam", "taal_code", "instellingsnummer", "intern_volgnr_vpl", "administratieve_groep"]
 
 
-def main(y0=2016, y1=2025):
+def main(y0=2016, y1=2025, t="feb"):
+    sfx = "" if t == "feb" else "_okt"
     fr = []
     for y in range(y0, y1 + 1):
-        f = DATA / f"ins_{y}.csv"
+        f = DATA / f"ins_{y}{sfx}.csv"
         if not f.exists() or f.stat().st_size == 0:
-            r = requests.get(URL.format(y=y, n=y + 1), timeout=600)
+            r = requests.get(URL.format(y=y, n=y + 1, t=t), timeout=600)
             r.raise_for_status()
             f.write_bytes(r.content)
         d = pd.read_csv(f, usecols=lambda c: c in KEEP + ["aantal_inschrijvingen"], dtype=str)
@@ -41,10 +43,10 @@ def main(y0=2016, y1=2025):
     a["instellingsnummer"] = a.instellingsnummer.str.replace(r"\.0$", "", regex=True)
     for c in KEEP:
         a[c] = a[c].astype("category")
-    a.to_pickle(DATA / "vl.pkl")
+    a.to_pickle(DATA / f"vl{sfx}.pkl")
     print(a.groupby(["jaar", "hs"]).n.sum().unstack())
 
 
 if __name__ == "__main__":
     a = sys.argv[1:]
-    main(int(a[0]) if a else 2016, int(a[1]) if len(a) > 1 else 2025)
+    main(int(a[0]) if a else 2016, int(a[1]) if len(a) > 1 else 2025, a[2] if len(a) > 2 else "feb")

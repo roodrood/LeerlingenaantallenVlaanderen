@@ -1,6 +1,9 @@
-"""Verhaal 'Eerste signalen 2026-27': voorlopige cijfers van 1 oktober naast de tellingen van 1 februari.
+"""Verhaal 'Eerste signalen 2026-27': voorlopige cijfers van 1 oktober 2026 naast de tellingen van 1 oktober 2016-2025.
 
-Vereist: data/vl.pkl (stap 1), data/verhaal.json (stap 2, voor de gemeentegrenzen), data/voorlopig_2026.xlsx
+Zelfde teldag aan beide kanten: tussen oktober en februari komen er kleuters (instapdata) en OKAN-leerlingen bij,
+dus een vergelijking met 1 februari zou die als daling tonen. Definitieve analyses blijven op 1 februari (hoofdverhaal).
+
+Vereist: data/vl_okt.pkl (stap 1 met teldag okt), data/verhaal.json (stap 2, voor de gemeentegrenzen), data/voorlopig_2026.xlsx
 (wordt opgehaald door scripts/04_voorlopig.py). Uitvoer: docs/voorlopig.html.
 """
 import json
@@ -40,7 +43,7 @@ def nieuw(d):
     d.loc[hs == "121", "cat"] = "bu kleuter"
     d.loc[hs == "221", "cat"] = "bu lager"
     d.loc[hs == "321", "cat"] = "buso"
-    # Type 5 (ziekenhuisscholen) staat niet in de open data van 1 februari: weglaten om appels met appels te vergelijken.
+    # Type 5 (ziekenhuisscholen) staat niet in de open data: weglaten om appels met appels te vergelijken.
     d.loc[d.type_buitengewoon.astype(str) == "5", "cat"] = "type 5"
     d["type"] = d.type_buitengewoon.fillna("").astype(str).replace({"BA": "BA"})
     d["ov"] = d.opleidingsvorm_buso.map({1: "OV1", 2: "OV2", 3: "OV3", 4: "OV4"})
@@ -85,7 +88,7 @@ SEC_GEWOON = [c for c in SEC if c not in ("OKAN", "HBO5", "sec ander", "7e lj")]
 
 def main():
     v = nieuw(pd.read_excel(DATA / "voorlopig_2026.xlsx", dtype={"nummer_hoofdstructuur": str}))
-    a = pd.read_pickle(DATA / "vl.pkl")
+    a = pd.read_pickle(DATA / "vl_okt.pkl")
     reeks = {y: oud(a, y) for y in Y}
     f = reeks[2025]
     som = lambda df, cats: int(df[df.cat.isin(cats)].n.sum())
@@ -93,7 +96,7 @@ def main():
     groepen = {"lager": LAGER, "secundair": SEC, "sec_gewoon": SEC_GEWOON, "1A": ["1A"], "1B": ["1B"], "buso": ["buso"],
                "bu lager": ["bu lager"], "kleuter": ["kleuter"], "OKAN": ["OKAN"], "7e lj": ["7e lj"], "HBO5": ["HBO5"],
                "bu kleuter": ["bu kleuter"]}
-    out["feb"] = {k: [som(reeks[y], c) for y in Y] for k, c in groepen.items()}
+    out["ref"] = {k: [som(reeks[y], c) for y in Y] for k, c in groepen.items()}
     out["okt"] = {k: som(v, c) for k, c in groepen.items()}
     out["sep"] = None
     out["cat"] = {c: [som(f, [c]), som(v, [c])] for c in LAGER + SEC}
@@ -105,7 +108,7 @@ def main():
             x = df[df.cat.isin(c)]
             r[k] = {**{p: int(x[x.prov == p].n.sum()) for p in PROV}, **{t: int(x[x.typ == t].n.sum()) for t in ["Brussel", "Centrumsteden", "Rest van Vlaanderen"]}}
         return r
-    out["regio"] = {"feb": regio(f), "okt": regio(v)}
+    out["regio"] = {"ref": regio(f), "okt": regio(v)}
     # gemeenten: lager
     gl = lambda df: df[df.cat.isin(LAGER)].groupby("gem").n.sum()
     g0, g1 = gl(f), gl(v)
