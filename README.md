@@ -1,4 +1,4 @@
-# Leerlingen in Vlaanderen
+# Onderwijsanalyse Vlaanderen
 
 Scrollverhaal over de leerlingenaantallen in het Nederlandstalig leerplichtonderwijs, schooljaren 2016-17 tot 2025-26,
 op basis van **open data** (Onderwijs Vlaanderen, Federaal Planbureau/Statbel, Informatie Vlaanderen).
